@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 <template>
-=======
-<template >
->>>>>>> technocrats/abdulazizorazbaev
     <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
@@ -21,11 +17,7 @@
                     <a href="https://flowbite.com" class="flex ml-2 md:mr-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
                         <span
-<<<<<<< HEAD
                             class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Eclo</span>
-=======
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
->>>>>>> technocrats/abdulazizorazbaev
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -71,29 +63,14 @@
                                         role="menuitem">Sign out</a>
                                 </li>
                             </ul>
-<<<<<<< HEAD
                         </div>
-=======
->>>>>>> technocrats/abdulazizorazbaev
                     </div>
                 </div>
             </div>
         </div>
-<<<<<<< HEAD
     </nav>
 </template>
 
 <script setup lang="ts"></script>
 
 <style></style>
-=======
-    </div>
-    </nav>
-</template>
-
-<script setup lang="ts">
-
-</script>
-
-<style scoped></style>
->>>>>>> technocrats/abdulazizorazbaev
