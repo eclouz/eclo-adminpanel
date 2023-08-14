@@ -5,16 +5,20 @@
         <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul class="space-y-2 font-medium">
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconDashboard></IconDashboard>
-                        <span class="ml-3">Dashboard</span>
-                    </a>
+                    <router-link to="/dashboard">
+                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconDashboard></IconDashboard>
+                            <span class="ml-3">Dashboard</span>
+                        </a>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconBrands></IconBrands>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Brands</span>
-                    </a>
+                    <router-link to="/brands">
+                            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconBrands></IconBrands>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Brands</span>
+                        </a>
+                    </router-link>
                 </li>
                 <li>
                     <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
@@ -68,4 +72,5 @@ import IconSettings from '../icons/IconSettings.vue'
 import IconSignIn from '../icons/IconSignIn.vue'
 </script>
 
-<style></style>
+<style scoped>
+</style>
