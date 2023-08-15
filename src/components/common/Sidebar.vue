@@ -6,55 +6,67 @@
             <ul class="space-y-2 font-medium">
                 <li>
                     <router-link to="/dashboard">
-                        <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconDashboard></IconDashboard>
                             <span class="ml-3">Dashboard</span>
-                        </a>
+                        </div>
                     </router-link>
                 </li>
                 <li>
                     <router-link to="/brands">
-                            <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <IconBrands></IconBrands>
                             <span class="flex-1 ml-3 whitespace-nowrap">Brands</span>
-                        </a>
+                        </div>
                     </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconCategories></IconCategories>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Categories</span>
-                    </a>
+                    <router-link to="/categories">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconCategories></IconCategories>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Categories</span>
+                        </div>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconDiscounts></IconDiscounts>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Discounts</span>
-                    </a>
+                    <router-link to="/discounts">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconDiscounts></IconDiscounts>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Discounts</span>
+                        </div>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconProducts></IconProducts>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Products</span>
-                    </a>
+                    <router-link to="/products">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconProducts></IconProducts>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Products</span>
+                        </div>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconUsers></IconUsers>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
-                    </a>
+                    <router-link to="/users">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconUsers></IconUsers>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Users</span>
+                        </div>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconSettings></IconSettings>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Settings</span>
-                    </a>
+                    <router-link to="/settings">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconSettings></IconSettings>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Settings</span>
+                        </div>
+                    </router-link>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                        <IconSignIn></IconSignIn>
-                        <span class="flex-1 ml-3 whitespace-nowrap">Sign In</span>
-                    </a>
+                    <router-link to="/auth">
+                        <div class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconSignIn></IconSignIn>
+                            <span class="flex-1 ml-3 whitespace-nowrap">Sign In</span>
+                        </div>
+                    </router-link>
                 </li>
             </ul>
         </div>
