@@ -4,10 +4,11 @@ import Header from '../components/common/Header.vue'
 import Sidebar from '../components/common/Sidebar.vue'
 import Footer from '../components/common/Footer.vue'
 import ThemeSetter from '../components/common/ThemeSetter.vue'
-import FlowbiteSetup from './FlowbiteSetup.vue'
+import FlowbiteSetup from '../FlowbiteSetup.vue'
 </script>
 
 <template>
+  <FlowbiteSetup></FlowbiteSetup>
   <ThemeSetter></ThemeSetter>
   <Header></Header>
   <Sidebar></Sidebar>

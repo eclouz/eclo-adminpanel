@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import ThemeSwitcher from './ThemeSwitcher.vue';
+import LanguageSwitcher from './LanguageSwitcher.vue';
 </script>
 
 <template>
@@ -25,6 +26,7 @@ import ThemeSwitcher from './ThemeSwitcher.vue';
                     </a>
                 </div>
                 <div class="flex items-center">
+                    <LanguageSwitcher></LanguageSwitcher>
                     <ThemeSwitcher></ThemeSwitcher>
                     <div class="flex items-center ml-3">
                         <div>
