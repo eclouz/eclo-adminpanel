@@ -59,7 +59,12 @@ const router = createRouter({
         {
           path:'verify',
           component: ()=> import('../views/auth/VerifyView.vue')
+        },
+        {
+          path:'change-password',
+          component: ()=>import('../views/auth/ChangePasswordView.vue')
         }
+
       ]
     },
   ]
