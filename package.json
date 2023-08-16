@@ -14,8 +14,11 @@
   "dependencies": {
     "apexcharts": "^3.41.1",
     "flowbite": "^1.8.1",
+    "i18n-next": "^0.0.4",
+    "next-i18next": "^14.0.0",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.2.4"
   },
   "devDependencies": {
