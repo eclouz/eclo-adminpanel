@@ -36,6 +36,10 @@ const router = createRouter({
         {
           path: 'settings',
           component: ()=>import('../views/settings/SettingsView.vue')
+        },
+        {
+          path: 'account',
+          component: ()=>import('../views/account/AccountView.vue')
         }
       ]
     },
