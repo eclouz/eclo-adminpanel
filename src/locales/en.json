@@ -6,5 +6,6 @@
     "products": "Products",
     "users": "Users",
     "settings": "Settings",
-    "signin": "Sign In"
+    "signout": "Sign Out",
+    "profile": "Profile"
 }
