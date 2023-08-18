@@ -22,6 +22,10 @@ const router = createRouter({
           component: ()=>import('../views/categories/CategoriesView.vue')
         },
         {
+          path: 'subcategories',
+          component: ()=>import('../views/categories/SubCategoriesView.vue')
+        },
+        {
           path: 'discounts',
           component: ()=>import('../views/discounts/DiscountsView.vue')
         },
