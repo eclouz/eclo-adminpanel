@@ -27,6 +27,15 @@ const { t } = useI18n()
                     </router-link>
                 </li>
                 <li>
+                    <router-link to="/brands">
+                        <div
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconBrands></IconBrands>
+                            <span class="ml-3">{{ $t('brands') }}</span>
+                        </div>
+                    </router-link>
+                </li>
+                <li>
                     <button type="button"
                         class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                         aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">

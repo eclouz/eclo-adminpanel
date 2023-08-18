@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "apexcharts": "^3.41.1",
+    "axios": "^1.4.0",
     "flowbite": "^1.8.1",
     "flowbite-datepicker": "^1.2.2",
     "i18n-next": "^0.0.4",
