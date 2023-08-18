@@ -4,6 +4,7 @@
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="mx-auto max-w-screen-2xl">
             <div class="relative overflow-hidden bg-white shadow-md dark:bg-gray-800">
+                <!--Search, Add and Fi-->
                 <div
                     class="flex flex-col px-4 py-3 space-y-3 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 lg:space-x-4">
                     <div class="flex items-center flex-1 space-x-4">
@@ -159,6 +160,9 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Table Start-->
+
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -897,6 +901,11 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!--Table End-->
+
+                <!--Pagenation Start-->
+
                 <nav class="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0"
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
@@ -952,6 +961,8 @@
                         </li>
                     </ul>
                 </nav>
+
+                <!--Pagenation End-->
             </div>
         </div>
     </section>
