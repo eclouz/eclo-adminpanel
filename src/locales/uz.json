@@ -4,8 +4,9 @@
     "categories": "Kategoriyalar",
     "discounts": "Chegirmalar",
     "products": "Maxsulotlar",
-    "users": "Paydalanıwshılar",
+    "users": "Foydalanuvchilar",
     "settings": "Sozlamalar",
-    "signin": "Kirish",
-    "subcategories": "Subkategoriyalar"
+    "subcategories": "Subkategoriyalar",
+    "signout": "Сhiqish",
+    "profile": "Profil"
 }

@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import ThemeSwitcher from './ThemeSwitcher.vue';
 import LanguageSwitcher from './LanguageSwitcher.vue';
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 </script>
 
 <template>
@@ -53,14 +55,14 @@ import LanguageSwitcher from './LanguageSwitcher.vue';
                                     <router-link to="/account">
                                         <a href="#"
                                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            role="menuitem">Profile</a>
+                                            role="menuitem">{{ $t('profile') }}</a>
                                     </router-link>
                                 </li>
                                 <li>
                                     <router-link to="/auth">
                                         <a href="#"
                                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                            role="menuitem">Sign out</a>
+                                            role="menuitem">{{ $t('signout') }}</a>
                                     </router-link>
                                 </li>
                             </ul>

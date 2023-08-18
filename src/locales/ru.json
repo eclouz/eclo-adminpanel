@@ -6,6 +6,7 @@
     "products": "Продукты",
     "users": "Пользователи",
     "settings": "Настройки",
-    "signin": "Вход",
-    "subcategories":"Подкатегории"
+    "subcategories":"Подкатегории",
+    "signout": "Выйти",
+    "profile": "Профиль"
 }
