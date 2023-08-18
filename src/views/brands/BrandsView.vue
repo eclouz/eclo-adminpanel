@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconDelete from "@/components/icons/common/IconDelete.vue";
+import IconEdit from "@/components/icons/common/IconEdit.vue";
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 const t = useI18n()
@@ -81,7 +83,7 @@ const t = useI18n()
                             <label for="checkbox-table-3" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <td class="w-32 p-4">
+                    <td class="w-32 p-6">
                         <img src="../../assets/brands/nike.png" alt="Apple Watch">
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -96,8 +98,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         $145
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-14 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -107,7 +114,7 @@ const t = useI18n()
                             <label for="checkbox-table-3" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <td class="w-32 p-4">
+                    <td class="w-32 p-6">
                         <img src="../../assets/brands/adidas.png" alt="Apple Watch">
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -122,8 +129,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         $699
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-14 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -133,7 +145,7 @@ const t = useI18n()
                             <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <td class="w-32 p-4">
+                    <td class="w-32 p-6">
                         <img src="../../assets/brands/eagle.png" alt="Apple Watch">
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -148,8 +160,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         $30
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-14 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -159,7 +176,7 @@ const t = useI18n()
                             <label for="checkbox-table-search-2" class="sr-only">checkbox</label>
                         </div>
                     </td>
-                    <td class="w-32 p-4">
+                    <td class="w-32 p-6">
                         <img src="../../assets/brands/jordan.png" alt="Apple Watch">
                     </td>
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -174,8 +191,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         $19
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-14 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr> 
             </tbody>

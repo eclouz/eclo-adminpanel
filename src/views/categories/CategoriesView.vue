@@ -84,8 +84,7 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4 flex justify-start">
-
+                    <td class="px-6 py-4 flex justify-start items-center">
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <IconEdit> </IconEdit>
                         </a>
@@ -112,8 +111,7 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4 flex justify-start">
-
+                    <td class="px-6 py-4 flex justify-start items-center">
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <IconEdit></IconEdit>
                         </a>
@@ -140,8 +138,7 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4 flex justify-start">
-
+                    <td class="px-6 py-4 flex justify-start items-center">
                         <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                             <IconEdit></IconEdit>
                         </a>

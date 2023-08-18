@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconDelete from "@/components/icons/common/IconDelete.vue";
+import IconEdit from "@/components/icons/common/IconEdit.vue";
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 const t = useI18n()
@@ -160,8 +162,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-4 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>
 
@@ -185,8 +192,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-4 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>
 
@@ -210,8 +222,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-4 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>
 
@@ -235,8 +252,13 @@ const t = useI18n()
                     <td class="px-6 py-4">
                         8/17/2023
                     </td>
-                    <td class="px-6 py-4">
-                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                    <td class="px-6 py-4 flex justify-start items-center">
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconEdit></IconEdit>
+                        </a>
+                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+                            <IconDelete></IconDelete>
+                        </a>
                     </td>
                 </tr>                
         </tbody>
