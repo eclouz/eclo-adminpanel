@@ -3,7 +3,7 @@ export function formatDate(date: Date): String {
 
     let year = date.getFullYear();
     let month = date.getMonth().toString();
-    if(month.length == 1) month = "0"+month;
+    if(month.length == 1) month = "0" + month;
     let day = date.getDay().toString();
     if(day.length == 1) day = "0" + day;
     
@@ -12,5 +12,5 @@ export function formatDate(date: Date): String {
     let minutes = date.getMinutes().toString();
     if(minutes.length == 1) minutes = "0" + minutes;
     
-    return day + "/" + month + "/" + year + '\n' + hours + ":" + minutes;
+    return day + "/" + month + "/" + year + ' ' + hours + ":" + minutes;
 }
