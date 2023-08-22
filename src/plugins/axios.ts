@@ -1,15 +1,14 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: "http://eclo.uz:8080"//process.env.VUE_APP_BASE_URL // Set your base URL here
-  
+  baseURL: "http://eclo.uz:8080/"
 });
 
 // Interceptors for handling common scenarios
 instance.interceptors.response.use(
   response => response,
-  error => {
-    if(error.response.status==400){
+  (error) => {
+    if (error.response.status == 400) {
       return error.response;
     }
     if (error.response.status === 401) {
@@ -24,7 +23,7 @@ instance.interceptors.response.use(
     else if (error.response.status == 500){
       console.log("500 error handled");
     }
-    return Promise.reject(error);
+    else return Promise.reject(error);
   }
 );
 
