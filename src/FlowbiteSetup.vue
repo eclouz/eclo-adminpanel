@@ -28,3 +28,7 @@ onMounted(() => {
     initTooltips();
 })
 </script>
+<template>
+</template>
+
+<style></style>

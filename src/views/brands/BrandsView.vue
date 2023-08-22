@@ -6,6 +6,7 @@ import BrandSkeletonComponent from '@/components/brands/BrandSkeletonComponent.v
 import BrandSearchAddComponent from '@/components/brands/BrandSearchAddComponent.vue'
 import axios from '@/plugins/axios'
 import { useI18n } from 'vue-i18n'
+import { getToken } from '@/helpers/TokenHelper';
 
 export default defineComponent({
     components: {
@@ -15,10 +16,15 @@ export default defineComponent({
     },
     methods: {
         async getDataAsync() {
-            this.isLoaded = false
-            var response = await axios.get<BrandViewModel[]>('/api/common/brands?page=1')
-            this.isLoaded = true
-            this.brandsList = response.data
+            this.isLoaded = false;
+            const token = getToken();
+            const response = await axios.get<BrandViewModel[]>('/api/common/brands?page=1', {
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            this.isLoaded = true;
+            this.brandsList = response.data;
         }
     },
     data() {
