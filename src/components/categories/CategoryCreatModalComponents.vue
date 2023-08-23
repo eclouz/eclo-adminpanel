@@ -21,8 +21,7 @@ export default defineComponent({
                     "Content-Type": "multipart/form-data",
                 },
             });
-            if (response.status == 200) {
-                alert("Ok")
+            if (response.status == 200) {               
                 this.$router.push("/categories");
                 this.hideModal();
 
