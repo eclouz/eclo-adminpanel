@@ -3,7 +3,7 @@ import CategoryDeleteComponents from "./CategoryDeleteComponents.vue"
 import CategoryEditComponent from "./CategoryEditComponent.vue";
 import CategoryDescriptionViewComponents from "./CategoryDescriptionViewComponents.vue";
 import axios from '@/plugins/axios';
-import { formatDate } from "@/helpers/DateHelper";
+import { formatDate } from "@/Helpers/DateHelper";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -65,11 +65,15 @@ export default defineComponent({
 		<td class="px-6 py-4 flex justify-start">
 			<div>
 				<!--begin:: Edit Category-->
-				<CategoryEditComponent></CategoryEditComponent>
+				<CategoryEditComponent 
+					:name-prop=name 
+					:description-prop=description
+					:id-prop=id>
+				</CategoryEditComponent>
 				<!--end:: Edit Category-->
 
 				<!--begin:: Delete Category-->
-				<CategoryDeleteComponents></CategoryDeleteComponents>
+				<CategoryDeleteComponents :id-category=id></CategoryDeleteComponents>
 				<!--end:: Delete Category-->
 			</div>
 
