@@ -1,7 +1,7 @@
 <template>
     <!--Table Head Start-->
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-        <tr>
+        <tr class="text-center">
             <th scope="col" class="p-4">
                 <div class="flex items-center">
                     <input id="checkbox-all-search" type="checkbox"

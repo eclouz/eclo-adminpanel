@@ -3,7 +3,7 @@ import CategoryDeleteComponents from "./CategoryDeleteComponents.vue"
 import CategoryEditComponent from "./CategoryEditComponent.vue";
 import CategoryDescriptionViewComponents from "./CategoryDescriptionViewComponents.vue";
 import axios from '@/plugins/axios';
-import { formatDate } from "@/Helpers/DateHelper";
+import { formatDate } from "@/helpers/DateHelper";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -47,22 +47,22 @@ export default defineComponent({
 				<label for="checkbox-table-search-1" class="sr-only">checkbox</label>
 			</div>
 		</td>
-		<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+		<th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white text-center">
 			#{{ id }}
 		</th>
-		<td class="px-6 py-4">
+		<td class="px-6 py-4 text-center">
 			{{ name }}
 		</td>
-		<td class="px-6 py-4 flex justify-start">
+		<td class="px-6 py-4 text-center">
 			<CategoryDescriptionViewComponents :description-modal=description></CategoryDescriptionViewComponents>
 		</td>
-		<td class="px-6 py-4">
+		<td class="px-6 py-4 text-center">
 			{{ createdAtString }}
 		</td>
-		<td class="px-6 py-4">
+		<td class="px-6 py-4 text-center">
 			{{updatedAtString }}
 		</td>
-		<td class="px-6 py-4 flex justify-start">
+		<td class="px-6 py-4 flex justify-center">
 			<div>
 				<!--begin:: Edit Category-->
 				<CategoryEditComponent 
