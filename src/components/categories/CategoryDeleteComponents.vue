@@ -1,27 +1,55 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import IconDelete from "../icons/common/IconDelete.vue"
+import IconDelete from "../icons/common/IconDelete.vue";
+import axios from '@/plugins/axios';
+
 export default defineComponent({
     components: {
         IconDelete
+    },
+    props:{
+        idCategory:Number
+    },
+    data() {
+        return {
+            showDeleteModal: false
+        };
+    },
+    methods: {
+        openDeleteModal() {
+            this.showDeleteModal = true;
+        },
+        closeDeleteModal() {
+            this.showDeleteModal = false;
+        },
+        async confirmDelete() {
+            // Delete
+            const response = await axios.delete("/api/admin/categories/"+this.idCategory);
+            
+
+            console.log("Deleting the category...");
+
+            // Modal oynani yopish
+            this.closeDeleteModal();
+        }
     }
 });
 </script>
 
+
 <template>
     <!--begin:: Delete Modal Button-->
-    <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" href="#"
-        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
+    <button @click="openDeleteModal" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
         <IconDelete></IconDelete>
     </button>
     <!--end:: Delete Modal Button-->
 
     <!--begin:: Delete Modal Window-->
-    <div id="popup-modal" tabindex="-1"
-        class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div v-if="showDeleteModal"
+        class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
         <div class="relative w-full max-w-md max-h-full">
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button"
+                <button @click="closeDeleteModal"
                     class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-hide="popup-modal">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -39,11 +67,11 @@ export default defineComponent({
                     </svg>
                     <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure
                         you want to delete this category?</h3>
-                    <button data-modal-hide="popup-modal" type="button"
+                    <button  @click="confirmDelete" type="button"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
                         Yes, I'm sure
                     </button>
-                    <button data-modal-hide="popup-modal" type="button"
+                    <button  @click="closeDeleteModal" type="button"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
                         cancel</button>
                 </div>

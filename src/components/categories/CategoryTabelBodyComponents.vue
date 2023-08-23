@@ -67,11 +67,15 @@ export default defineComponent({
 		<td class="px-6 py-4 flex justify-start">
 			<div>
 				<!--begin:: Edit Category-->
-				<CategoryEditComponent></CategoryEditComponent>
+				<CategoryEditComponent 
+					:name-prop=name 
+					:description-prop=description
+					:id-prop=id>
+				</CategoryEditComponent>
 				<!--end:: Edit Category-->
 
 				<!--begin:: Delete Category-->
-				<CategoryDeleteComponents></CategoryDeleteComponents>
+				<CategoryDeleteComponents :id-category=id></CategoryDeleteComponents>
 				<!--end:: Delete Category-->
 			</div>
 
