@@ -26,11 +26,12 @@ export default defineComponent({
             // Delete
             const response = await axios.delete("/api/admin/categories/"+this.idCategory);
             
-
+           
             console.log("Deleting the category...");
 
             // Modal oynani yopish
             this.closeDeleteModal();
+            location.reload();
         }
     }
 });

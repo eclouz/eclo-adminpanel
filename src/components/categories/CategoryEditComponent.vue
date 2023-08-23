@@ -36,7 +36,11 @@ export default defineComponent({
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
+                
             });
+            this.closeModal()
+            location.reload()
+
         },
     },
 
