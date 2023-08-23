@@ -3,7 +3,7 @@ import CategoryDeleteComponents from "./CategoryDeleteComponents.vue"
 import CategoryEditComponent from "./CategoryEditComponent.vue";
 import CategoryDescriptionViewComponents from "./CategoryDescriptionViewComponents.vue";
 import axios from '@/plugins/axios';
-import { formatDate } from "../../Helpers/DateHelper";
+import { formatDate } from "@/helpers/DateHelper";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -17,7 +17,6 @@ export default defineComponent({
 		createdAt: Date,
 		updatedAt: Date
 	},
-
 	data() {
 		return {
 			baseURL: "" as String,
@@ -35,7 +34,6 @@ export default defineComponent({
 	},
 	mounted() {
 		this.load();
-		
 	}
 });
 </script>
