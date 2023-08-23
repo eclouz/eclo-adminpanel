@@ -7,7 +7,8 @@ import CategoryCreatModalComponents from "@/components/categories/CategoryCreatM
 import CategorySkeletonComponent from '@/components/categories/CategorySkeletonComponent.vue';
 import CategoryTableHeadComponent from "@/components/categories/CategoryTableHeadComponents.vue";
 import axios from '@/plugins/axios';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
+import FlowbiteSetup from "@/FlowbiteSetup.vue";
 export default defineComponent({
     props: {
 
@@ -45,6 +46,7 @@ export default defineComponent({
 </script>
 
 <template>
+    <FlowbiteSetup></FlowbiteSetup>
     <!--begin:: BreadCrumb-->
     <CategoryBreadCrumbComponent></CategoryBreadCrumbComponent>
     <!--end:: BreadCrumb-->
