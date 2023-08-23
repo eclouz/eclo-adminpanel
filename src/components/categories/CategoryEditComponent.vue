@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import IconEdit from "../icons/common/IconEdit.vue";
-import axios from '@/plugins/axios';
+import axios from '@/plugins/axios';   
 
 export default defineComponent({
     components: {
@@ -21,7 +21,7 @@ export default defineComponent({
     },
     methods: {
         openModal() {
-            this.categoryName = this.nameProp!; 
+            this.categoryName = this.nameProp!;
             this.categoryDescription = this.descriptionProp!;
             this.showModal = true;
         },
@@ -36,16 +36,11 @@ export default defineComponent({
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
-                
             });
             this.closeModal()
             location.reload()
-
         },
     },
-
-
-
 });
 </script>
 
