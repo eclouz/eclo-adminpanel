@@ -17,7 +17,6 @@ export default defineComponent({
 		createdAt: Date,
 		updatedAt: Date
 	},
-
 	data() {
 		return {
 			baseURL: "" as String,
@@ -35,7 +34,6 @@ export default defineComponent({
 	},
 	mounted() {
 		this.load();
-		
 	}
 });
 </script>

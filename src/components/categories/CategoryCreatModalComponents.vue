@@ -2,6 +2,7 @@
 import IconCreate from "@/components/icons/common/IconCreate.vue";
 import { defineComponent } from "vue";
 import axios from '@/plugins/axios';
+import FlowbiteSetup from "@/FlowbiteSetup.vue";
 export default defineComponent({
     components: {
         IconCreate
@@ -15,8 +16,6 @@ export default defineComponent({
     },
     methods: {
         async createAsync() {
-
-
             const response = await axios.post("/api/admin/categories", { "name": this.name, "description": this.description }, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -44,6 +43,7 @@ export default defineComponent({
 });
 </script>
 <template>
+    <FlowbiteSetup></FlowbiteSetup>
     <!-- begin:: Modal Button -->
     <div class="flex w-100 justify-end">
         <button data-modal-target="create-modal" data-modal-toggle="create-modal"
