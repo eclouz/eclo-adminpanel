@@ -44,8 +44,6 @@ export default defineComponent({
             }
         },
         openCreateModal() {
-            console.log("erhgrwhr");
-            debugger;
             this.showCreateModal = true;
         },
         closeCreateModal() {
@@ -88,7 +86,7 @@ export default defineComponent({
                     <!-- Modal header -->
                     <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            Create Add Window
+                            Brand Add Window
                         </h3>
                         <button @click="closeCreateModal" type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
