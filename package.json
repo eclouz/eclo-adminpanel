@@ -11,6 +11,13 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
+  "tsConfig": "tsconfig.app.json",
+  "aot": true,
+  "assets": [
+      "src/favicon.ico",
+      "src/assets",
+      "src/web.config"
+  ],
   "dependencies": {
     "apexcharts": "^3.41.1",
     "axios": "^1.4.0",
