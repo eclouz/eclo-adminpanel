@@ -28,10 +28,7 @@ export default defineComponent({
         closeModal() {
             this.showModal = false;
         },
-        async submitForm() {
-            // Bu funksiya tahrirlangan ma'lumotlarni yuborish uchun ishlatiladi
-            // Ma'lumotlarni this.categoryName va this.categoryDescription orqali olishingiz mumkin
-            // Yuborish logikasini qo'shishingiz kerak
+        async submitForm() {          
             const response = await axios.put("/api/admin/categories/"+this.idProp, { "name": this.categoryName, "description": this.categoryDescription }, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -80,7 +77,7 @@ export default defineComponent({
                             </label>
                             <input v-model="categoryName" type="text" name="name" id="name"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                required>
+                                >
                         </div>
                         <!--Category Name Edit End-->
 
@@ -91,7 +88,7 @@ export default defineComponent({
                                 description</label>
                             <textarea v-model="categoryDescription" name="description" id="description"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                required>
+                                >
                             </textarea>
                         </div>
                         <!--Edit Description End-->
