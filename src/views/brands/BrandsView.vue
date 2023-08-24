@@ -6,7 +6,7 @@ import BrandSkeletonComponent from '@/components/brands/BrandSkeletonComponent.v
 import BrandSearchAddComponent from '@/components/brands/BrandSearchAddComponent.vue'
 import axios from '@/plugins/axios'
 import { useI18n } from 'vue-i18n'
-import { getToken } from '@/helpers/TokenHelper';
+import { getToken } from '@/helpers/TokenHelper'
 
 export default defineComponent({
     components: {
@@ -85,7 +85,7 @@ export default defineComponent({
 
         <!--begin:: Brands-->
         <div>
-            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <div class="relative shadow-md sm:rounded-lg">
                 <BrandSearchAddComponent></BrandSearchAddComponent>
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -122,7 +122,7 @@ export default defineComponent({
                             <BrandViewComponent 
                                 :id=element.id
                                 :brandIconPath=element.brandIconPath
-                                :name=element.name 
+                                :name=element.name
                                 :createdAt=element.createdAt
                                 :updatedAt=element.updatedAt>
                             </BrandViewComponent>
