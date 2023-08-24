@@ -29,7 +29,7 @@ export default defineComponent({
     },
     async mounted() {
         await this.getDataAsync();
-    },
+    }
 });
 </script>
 
