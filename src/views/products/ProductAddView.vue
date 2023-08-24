@@ -6,7 +6,7 @@ import axios from 'axios';
 const t = useI18n()
 const dataList = ref<CategoryViewModel[]>([]);
 async function loadData() {
-  const response = await axios.get<CategoryViewModel[]>("http://localhost:5000/api/categories");
+const response = await axios.get<CategoryViewModel[]>("http://localhost:5000/api/categories");
   dataList.value = response.data;
 }
 onMounted(loadData);
