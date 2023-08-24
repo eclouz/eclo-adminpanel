@@ -44,6 +44,7 @@ export default defineComponent({
                 modal.classList.add("hidden");
                 modal.setAttribute("aria-hidden", "true");
             }
+            //add
         }
     },
 
