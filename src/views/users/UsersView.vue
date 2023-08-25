@@ -1,13 +1,12 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-//import { useI18n } from 'vue-i18n'
 import { UserViewModel } from '@/viewmodels/UserViewModels'
 import UserViewComponent from '@/components/users/UserViewComponent.vue'
 import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
-//const t = useI18n()
 
 export default defineComponent({
+    name: 'SearchItems',
     components: {
         UserViewComponent
     },
@@ -20,12 +19,38 @@ export default defineComponent({
                 }
             });
             this.usersList = response.data;
+        },
+        performSearch() {
+            const query = this.searchQuery.toLowerCase();
+            if (query === '') {
+                return this.usersList;
+            }
+            const filteredItems = this.usersList.filter(user =>
+                user.firstName.toLowerCase().includes(query) ||
+                user.lastName.toLowerCase().includes(query) ||
+                user.phoneNumber.toLowerCase().includes(query)
+            );
+            return filteredItems;
+        },
+        searchOnEnter() {
+            this.performSearch();
         }
     },
     data() {
         return {
+            searchQuery: '',
             usersList: [] as UserViewModel[]
         }
+    },
+    computed: {
+        filteredItems() {
+        const query = this.searchQuery.toLowerCase();
+            return this.usersList.filter(user =>
+                user.firstName.toLowerCase().includes(query) ||
+                user.lastName.toLowerCase().includes(query) ||
+                user.phoneNumber.toLowerCase().includes(query)
+            );
+        },
     },
     async mounted() {
         await this.getDataAsync();
@@ -74,7 +99,7 @@ export default defineComponent({
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="text" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+                <input @keyup.enter="searchOnEnter" v-model="searchQuery" @input="performSearch" type="text" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
             </div>
         </div>
         <!-- end:: SearchPanel -->
@@ -113,8 +138,8 @@ export default defineComponent({
                     </tr>
                 </thead>
                 <tbody>
-                    <template v-for="element in usersList">
-                        <UserViewComponent 
+                    <template v-for="element in filteredItems">
+                        <UserViewComponent
                             :id=element.id
                             :firstName=element.firstName
                             :lastName=element.lastName
