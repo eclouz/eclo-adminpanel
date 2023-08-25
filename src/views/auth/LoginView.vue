@@ -13,7 +13,10 @@ export default defineComponent({
     },
     methods: {
         async loginAsync() {
-             var loginDto = new LoginDto();
+            var loginDto = new LoginDto();
+            //  const formData = new FormData();
+            //  formData.append('PhoneNumber', this.phone.toString())
+            //  formData.append('Password', this.password.toString())
              loginDto.phoneNumber = this.phone;
              loginDto.password = this.password;
              var jsonContent:string = JSON.stringify(loginDto);
