@@ -70,11 +70,18 @@ export default defineComponent({
         <td class="px-6 py-4 flex justify-start">
             <div>
                 <!--begin:: Edit Modal-->
-                <SubcategoryEditComponent></SubcategoryEditComponent>
+                <SubcategoryEditComponent 
+                    :id-prop=id
+                    :id-category-prop=categoryId
+                    :name-prop=name
+                    :name-ctegory-prop=categoryName
+                    >
+                
+                </SubcategoryEditComponent>
                 <!--end:: Edit Modal-->
 
                 <!--begin:: Delete Modal-->
-                <SubcategoryDeleteComponent></SubcategoryDeleteComponent>
+                <SubcategoryDeleteComponent :id-sub-category=id></SubcategoryDeleteComponent>
                 <!--end:: Delete Modal-->
             </div>
         </td>
