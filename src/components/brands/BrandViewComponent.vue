@@ -4,6 +4,7 @@ import IconEdit from "../../components/icons/common/IconEdit.vue"
 import { formatDate } from "@/helpers/DateHelper"
 import { defineComponent } from 'vue'
 import axios from '@/plugins/axios'
+import type { BrandViewModel } from "@/viewmodels/BrandViewModels"
 
 export default defineComponent({
     components: {
@@ -22,6 +23,7 @@ export default defineComponent({
     },
     data() {
         return {
+            brandsList: [] as BrandViewModel[],
             showDeleteModal: false as Boolean,
             showEditModal: false as Boolean,
 
@@ -53,6 +55,10 @@ export default defineComponent({
                     console.error('Update error', error);
                 }
             }
+        },
+        async getDataAsync() {
+            const response = await axios.get<BrandViewModel[]>('/api/common/brands?page=1');
+            this.brandsList = response.data;
         },
         handleFileChange(event: any) {
             const fileInput = event.target as HTMLInputElement;
