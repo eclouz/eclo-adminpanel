@@ -1,4 +1,5 @@
 <script lang="ts">
+
 import { defineComponent } from 'vue'
 import IconAdd from '../icons/common/IconAdd.vue'
 import axios from '@/plugins/axios';

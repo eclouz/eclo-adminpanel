@@ -1,51 +1,108 @@
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { onMounted } from 'vue';
-import { ref } from 'vue';
-import axios from 'axios';
-const t = useI18n()
-const dataList = ref<CategoryViewModel[]>([]);
-async function loadData() {
-const response = await axios.get<CategoryViewModel[]>("http://localhost:5000/api/categories");
-  dataList.value = response.data;
-}
-onMounted(loadData);
+<script  lang="ts">
+import { defineComponent } from 'vue'
+// import IconAdd from '../icons/common/IconAdd.vue'
+import axios from '@/plugins/axios';
+import type { SubcategoryViewModel } from '@/viewmodels/SubcategoryViewModels';
+
+export default defineComponent({
+  data(){
+    return {
+      BrandId:  Number ,
+      SubCategoryId:  Number,
+      Name:"" as String,
+      UnitPrice: "" as String ,
+      Description:"" as String
+      // SubCategoryList: [] as SubcategoryViewModel[]
+    }
+  },
+  methods:{
+    async CreateProductAsync(){
+      const response = await axios.post("/api/admin/products", { "BrandId": this.BrandId, "SubCategoryId": this.SubCategoryId,"Name": this.Name,"UnitPrice":this.UnitPrice,"Description":this.Description },  {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+            if (response.status == 200) {
+                this.$router.push("/products");
+                // this.hideModal();
+
+            }
+            else {
+                // this.createErorr = true;
+            }
+      
+
+
+    }
+  }
+
+});
+
 </script>
 
 <template>
-    <!--begin:: Categories-->
-    <ul>
-      <template v-for="element in dataList">
-        <div
-          class="card flex h-48 mt-5 mb-5 me-5 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <div class="flex justify-content-start">
-            <img style="height: 100%; width: 100%; object-fit: cover;" class="rounded-lg"
-              src="https://australianmadeclothes.com.au/cdn/shop/files/HOMEPAGE_BANNER_2.png" />
-          </div>
-          <div class="p-4 justify-content-between">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ element.name }}</h5>
-            <p class="font-normal text-gray-700 dark:text-gray-400">{{ element.description }}</p>
-            <div class="flex flex-wrap items-center mt-5 mb-5">
-              <IconCalendar></IconCalendar>
-              <p class="me-5 mx-1 font-normal bold text-gray-700 dark:text-gray-400">{{ element.createdAt }}</p>
-              <IconCalendarEdit></IconCalendarEdit>
-              <p class="mx-1 font-normal bold text-gray-700 dark:text-gray-400">{{ element.updatedAt }}</p>
-            </div>
-          </div>
-          <div class="p-4 justify-content-end">
-            <button type="button"
-              class="mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              <IconEdit></IconEdit>
-            </button>
-            <button type="button"
-              class="mt-5 text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-              <IconDelete></IconDelete>
-            </button>
-          </div>
-        </div>
-      </template>
-    </ul>
-    <!--end:: Categories-->
+  <!-- Create Product -->
+  <label for="countries" class="block mb-5 text-sm font-medium text-gray-900 dark:text-white"
+  style="font-size: 25px; margin-left: 9px;">Add product</label>
+  
+  <div class="wpHorizontal"
+  style="
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px
+  ">
+  <!-- Choose brands  -->
+<select id="brands" style="margin-bottom: 15px; width: 45%;" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option selected>Choose a brand</option>
+  <option value="Nike">Adidas</option>  
+</select>
+  <!-- Choose brands  -->
+  
+  <!-- Choose subcategories  -->
+  <select id="subcategories" style="margin-bottom: 15px; width: 45%;" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option  selected>Choose a subcategory</option>
+  <option value="Nike">T-Shirt</option>  
+</select>
+  <!-- Choose subcategories  -->
+</div>
+
+
+
+<div class="border-b-0" style="
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px
+  ">
+<div class="mb-1" style="width: 45%;" >
+    <label style="margin-left: 9px;" for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Name</label>
+    <input v-model="Name" type="text" id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+</div>
+
+<div class="mb-1" style="width: 45%;">
+    <label style="margin-left: 9px;" for="default-input" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+    <input v-model="UnitPrice" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="default-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+    
+</div>
+
+<div class="mb-6" style="width: 45%;">
+  <label style="margin-left: 9px;" for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+  <textarea  v-model="Description"  style="max-height: 100px; min-height: 50px;
+   " id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your description here..."></textarea>
+</div>
+
+<div class="flex items-center p-4 space-x-2  border-gray-200 rounded-b dark:border-gray-600"
+style="width: 45%; margin-top: 65px;">
+                    <button @click="" type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        style="width: 100px;">Save</button>                    
+                </div>
+
+</div>
+<!-- Create Product -->
+
+
+
+
   </template>
 
 <style scoped></style>
