@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: "http://eclo.uz:8080/"
+  baseURL: "https://localhost:7190/"
 });
 
 // Interceptors for handling common scenarios
