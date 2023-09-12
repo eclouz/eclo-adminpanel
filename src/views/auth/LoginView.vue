@@ -13,7 +13,10 @@ export default defineComponent({
     },
     methods: {
         async loginAsync() {
-             var loginDto = new LoginDto();
+            var loginDto = new LoginDto();
+            //  const formData = new FormData();
+            //  formData.append('PhoneNumber', this.phone.toString())
+            //  formData.append('Password', this.password.toString())
              loginDto.phoneNumber = this.phone;
              loginDto.password = this.password;
              var jsonContent:string = JSON.stringify(loginDto);
@@ -41,9 +44,8 @@ export default defineComponent({
 <template>
     <section class="bg-gray-50 dark:bg-gray-900">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <img class="w-8 h-8 mr-2" src="../../assets/logo.svg" alt="logo">
-                ECLO Admin
+            <a class="flex items-center justify-center text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-32 h-24 mr-2" src="../../assets/logo.svg" alt="logo">
             </a>
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
