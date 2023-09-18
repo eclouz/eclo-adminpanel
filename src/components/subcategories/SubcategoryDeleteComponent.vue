@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import IconDelete from "../icons/common/IconDelete.vue";
 import axios from '@/plugins/axios';
 import FlowbiteSetup from "@/FlowbiteSetup.vue";
-
+import { getToken } from '@/helpers/TokenHelper';
 export default defineComponent({
     components: {
         IconDelete,FlowbiteSetup
@@ -25,7 +25,13 @@ export default defineComponent({
         },
         async confirmDelete() {
             // Delete
-            const response = await axios.delete("/api/admin/subcategories/" + this.idSubCategory);
+            const token = getToken();  
+
+            const response = await axios.delete("/api/admin/subcategories/" + this.idSubCategory,{
+                headers:{
+                    'Authorization': 'Bearer ' + token 
+                }
+            });
 
 
             console.log("Deleting the category...");

@@ -7,6 +7,7 @@ import BrandSearchAddComponent from '@/components/brands/BrandSearchAddComponent
 import axios from '@/plugins/axios'
 import { useI18n } from 'vue-i18n'
 import { getToken } from '@/helpers/TokenHelper'
+import { PaginationMetaData } from "@/Utils/PaginationUtils";
 
 export default defineComponent({
     components: {
@@ -15,16 +16,28 @@ export default defineComponent({
         BrandSearchAddComponent,
     },
     methods: {
-        async getDataAsync() {
+        
+        async getDataAsync(page: Number) {
             this.isLoaded = false;
-            const token = getToken();
+            const token = getToken();            
             const response = await axios.get<BrandViewModel[]>('/api/common/brands?page=1', {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
             });
             this.isLoaded = true;
+            const paginationJson = JSON.parse(response.headers['x-pagination']);
+            this.metaData = new PaginationMetaData();
+            this.metaData.currentPage = paginationJson.CurrentPage;
+            this.metaData.totalPages = paginationJson.TotalPages;
+            this.metaData.hasNext = paginationJson.HasNext;
+            this.metaData.hasPrevious = paginationJson.HasPrevious;
+            this.metaData.pageSize= paginationJson.PageSize;
+            this.metaData.totalItems = paginationJson.TotalItems;    
+            console.error("Error while fetching data:");
+
             this.brandsList = response.data;
+
         },
         performSearch() {
             const query = this.searchQuery.toLowerCase();
@@ -43,9 +56,15 @@ export default defineComponent({
     data() {
         return {
             brandsList: [] as BrandViewModel[],
-            defaultSkeletons: 1 as Number,
-            isLoaded: false as Boolean,
-            searchQuery: ''
+            defaultSkeletons: 1 as number,
+            isLoaded: false as boolean,
+            searchQuery: '',
+            metaData: new PaginationMetaData(),
+            page: 1 as number,
+            currentPage: 1 as number,
+            totalPages: 1 as number,
+            hasNext: false,
+            hasPrevious: false,    
         }
     },
     computed: {
@@ -60,7 +79,7 @@ export default defineComponent({
         const { t } = useI18n();
     },
     async mounted() {
-        await this.getDataAsync();
+        await this.getDataAsync(1);
     },
 })
 </script>
@@ -174,41 +193,70 @@ export default defineComponent({
         <!--end:: Brands-->
 
         <!--begin:: Pagination-->
-        <nav class="flex items-center justify-between pt-4" aria-label="Table navigation"> 
+        <!-- <nav class="flex items-center justify-between pt-4" aria-label="Table navigation"> 
             <span class="text-sm font-normal text-gray-500 dark:text-gray-400">Showing <span
                     class="font-semibold text-gray-900 dark:text-white">1-10</span> of <span
                     class="font-semibold text-gray-900 dark:text-white">{{ brandsList.length }}</span></span>
             <ul class="inline-flex -space-x-px text-sm h-8">
-                <li>
-                    <a href="#"
-                        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</a>
+                <li  v-show="metaData.hasPrevious == true">
+                    <button @click="getDataAsync(metaData.currentPage-1)" href="#"
+                        class="flex items-center justify-center px-3 h-8 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Previous</button>
                 </li>
-                <li>
-                    <a href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                <li v-for=" element in metaData.totalPages">
+                    <button @click="getDataAsync(element)"
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">{{ element }}</button>
                 </li>
-                <li>
-                    <a href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                </li>
-                <li>
-                    <a href="#" aria-current="page"
-                        class="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-                </li>
-                <li>
-                    <a href="#"
-                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</a>
+               
+                <li v-show="metaData.hasNext == true">
+                    <button @click="getDataAsync(metaData.currentPage+1)" 
+                        class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Next</button>
                 </li>
             </ul>
-        </nav>
+        </nav> -->
+        <nav class="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0"
+                    aria-label="Table navigation">
+                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
+                        Showing
+                        <span class="font-semibold text-gray-900 dark:text-white"> {{ metaData.totalItems }}  -</span>
+                        <span class="font-semibold text-gray-900 dark:text-white"> {{ metaData.pageSize }} </span>
+                        of
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ metaData.totalPages }}</span>
+                    </span>
+                    <ul class="inline-flex items-stretch -space-x-px">
+                        <li v-show="metaData.hasPrevious == true">
+                            <button @click="getDataAsync(metaData.currentPage-1)" 
+                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="sr-only">Previous</span>
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </li>
+                        <li v-for="el in metaData.totalPages">
+                            <!-- <a href="#"
+                                class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a> -->
+                            <button @click="getDataAsync(el)" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                {{ el }}
+                            </button>
+                        </li>
+                      
+                        <li v-show="metaData.hasNext == true">
+                            <button @click="getDataAsync(metaData.currentPage+1)" 
+                                class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                <span class="sr-only">Next</span>
+                                <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </li>
+                    </ul>
+                </nav>
         <!--end:: Pagination-->
     </div>
 </template>

@@ -4,6 +4,8 @@ import { defineComponent } from 'vue'
 import IconAdd from '../icons/common/IconAdd.vue'
 import axios from '@/plugins/axios';
 
+import { getToken } from '@/helpers/TokenHelper';
+
 export default defineComponent({
     components: {
         IconAdd
@@ -17,6 +19,8 @@ export default defineComponent({
     },
     methods: {
         async uploadImageAsync() {
+        const token = getToken();  
+            
             if (this.iconFilePath) {
                 const formData = new FormData();
                 formData.append('Name', this.name.toString());
@@ -24,7 +28,8 @@ export default defineComponent({
                 try {
                     const response = await axios.post('/api/admin/brands', formData, {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': 'Bearer ' + token                          
                         },
                     });
                     console.log('Upload successful!', response.data);
@@ -41,7 +46,7 @@ export default defineComponent({
                 this.iconFilePath = files[0];
             }
             else {
-                this.iconFilePath = null;
+                this.iconFilePath = null;   
             }
         },
         openCreateModal() {

@@ -4,7 +4,7 @@ import { CategoryViewModel } from "@/viewmodels/CategoryViewModels";
 import { defineComponent } from "vue";
 import IconEdit from "../icons/common/IconEdit.vue";
 import axios from '@/plugins/axios';
-
+import { getToken } from '@/helpers/TokenHelper';
 export default defineComponent({
     components: {
         IconEdit
@@ -36,10 +36,11 @@ export default defineComponent({
             this.showModal = false;
         },
         async submitForm() {
-            
+            const token = getToken();  
             const response = await axios.put("/api/admin/subcategories/"+this.idProp, { "categoryid":this.CategoryId, "name": this.Name}, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    'Authorization': 'Bearer ' + token 
                 },
             });
             this.closeModal()
