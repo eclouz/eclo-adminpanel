@@ -2,6 +2,7 @@
 import { defineComponent } from "vue";
 import IconDelete from "../icons/common/IconDelete.vue";
 import axios from '@/plugins/axios';
+import { getToken } from '@/helpers/TokenHelper';
 
 export default defineComponent({
     components: {
@@ -24,7 +25,13 @@ export default defineComponent({
         },
         async confirmDelete() {
             // Delete
-            const response = await axios.delete("/api/admin/categories/"+this.idCategory);
+            const token = getToken();  
+            const response = await axios.delete("/api/admin/categories/"+this.idCategory,{
+                headers:{
+                    'Authorization': 'Bearer ' + token 
+                }
+            });
+            console.log(response.data)
             
            
             console.log("Deleting the category...");

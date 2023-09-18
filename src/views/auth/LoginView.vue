@@ -20,7 +20,7 @@ export default defineComponent({
              loginDto.phoneNumber = this.phone;
              loginDto.password = this.password;
              var jsonContent:string = JSON.stringify(loginDto);
-             const response = await axios.post('api/auth/login', jsonContent, {
+             const response = await axios.post('api/admin/auth/login', jsonContent, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

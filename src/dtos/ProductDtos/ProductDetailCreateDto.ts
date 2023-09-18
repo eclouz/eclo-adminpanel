@@ -1,7 +1,7 @@
 export class ProductDetailCreateDto{
     ProductId:Number;
-    ImagePath:String;
-    Color:String;
+    ImagePath:string;
+    Color:string;
     constructor(){
         this.ProductId = 0 ;
         this.ImagePath = "";

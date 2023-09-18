@@ -1,30 +1,66 @@
-<script  lang="ts">
-// import { useI18n } from 'vue-i18n'
+<script   lang="ts">
+import { useI18n } from 'vue-i18n'
 import { defineComponent } from 'vue'
 import axios from '@/plugins/axios'
+import BrandSkeletonComponent from '@/components/brands/BrandSkeletonComponent.vue'
 import IconDelete from "../../components/icons/common/IconDelete.vue"
 import IconEdit from "../../components/icons/common/IconEdit.vue"
+import { PaginationMetaData } from "@/Utils/PaginationUtils";
+// import ProductViewComponent from 'src/components/products/ProductViewComponent.vue'
+import ProductViewComponent from '@/components/products/ProductViewComponent.vue';
+
+
+import { getToken } from '@/helpers/TokenHelper'
+
+
+
 // const t = useI18n()
 export default defineComponent({
     components: {
-        IconDelete, IconEdit
+        IconDelete, IconEdit , ProductViewComponent,BrandSkeletonComponent,
+
     },
     props : {
         id : Number ,
-    },
-    data() {
-        return {            
-            showDeleteModal: false as Boolean,
-            showEditModal: false as Boolean,
 
-            baseURL: "" as String,            
-            createdAtString: "" as String,
-            updatedAtString: "" as String,
-
-                        
-        }
-    },
+    },  
     methods:{
+        async GetDataAsync(page: Number){
+
+            this.isLoaded = false ;
+            const token = getToken();            
+            // debugger;
+            const response = await axios.get<ProductViewModel[]>("api/admin/products?page="+page,{
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            if(response.data.length>=0)
+            {
+                this.isLoaded = true;                                       
+            }
+            // else{
+            //     this.isLoaded = false;                       
+            // }
+            
+            // console.log(response.data)
+            this.productList = response.data;
+
+        
+
+            const paginationJson = JSON.parse(response.headers['x-pagination']);
+            this.metaData = new PaginationMetaData();
+            this.metaData.currentPage = paginationJson.CurrentPage;
+            this.metaData.totalPages = paginationJson.TotalPages;
+            this.metaData.hasNext = paginationJson.HasNext;
+            this.metaData.hasPrevious = paginationJson.HasPrevious;               
+            this.metaData.pageSize= paginationJson.PageSize;
+            this.metaData.totalItems = paginationJson.TotalItems;    
+            
+
+            // this.isLoaded = true;
+
+        },
         openEditModal() {
             // this.brandName = this.nameProp!;
             // this.iconFullPath = this.iconPath!;
@@ -43,14 +79,83 @@ export default defineComponent({
             await axios.delete("/api/admin/products/" + id)
             location.reload();
         },
+        async CountAllProductAsync(){
+            const response = await axios.get("/api/common/products/count")
+            this.countAllProducts = response.data;
+        },
+        
+        performSearch() {
+            const query = this.searchQuery.toLowerCase();
+            if (query === '') {
+                return this.productList;
+            }
+            const filteredItems = this.productList.filter(brand =>
+                brand.productName.toLowerCase().includes(query)
+            );
+            return filteredItems;
+        },
     },
+    data() {
+        return {        
+            defaultSkeletons: 1 as number,
+            isLoaded: false as boolean,
+
+            searchQuery: '' as string,
+            showDeleteModal: false as Boolean,
+            showEditModal: false as Boolean,
+            metaData: new PaginationMetaData(),
+            baseURL: "" as string,            
+            createdAtString: "" as string,
+            updatedAtString: "" as string,
+
+            countAllProducts: 0 as number,
+            
+            productList:[] as ProductViewModel[]   ,
+
+
+            hasNext: false,
+            hasPrevious: false,            
+            currentPage: 1 as number,
+            totalPages: 1 as number,
+
+
+
+
+        }
+    },
+    computed: {
+        filteredItems() {
+        const query = this.searchQuery.toLowerCase();
+            return this.productList.filter(product =>
+            product.productName.toLowerCase().includes(query)
+            );
+        },
+    },
+    setup() {
+    const { t } = useI18n();
+    
+  },
+    async mounted() {
+        await this.CountAllProductAsync();
+        await this.GetDataAsync(1);
+    },
+  
 
 })
 
 </script>
 
 <template>
+       <!--begin:: Brands Skeletons-->
+       <div v-show="isLoaded == false">
+        <template v-for="element in defaultSkeletons">
+            <BrandSkeletonComponent></BrandSkeletonComponent>
+        </template>
+    </div>
+    <!--end:: Brands Skeletons-->
+
     <!--begin:: BreadCrumb-->
+    <div v-show="isLoaded == true">
     <nav class="flex mb-5" aria-label="Breadcrumb">
       <ol class="inline-flex items-center space-x-1 md:space-x-3">
         <li class="inline-flex items-center">
@@ -88,7 +193,7 @@ export default defineComponent({
                     <div class="flex items-center flex-1 space-x-4">
                         <h5>
                             <span class="text-gray-500">All Products: </span>
-                            <span class="dark:text-white">123456</span>
+                            <span class="dark:text-white">{{countAllProducts}}</span>
                         </h5>
                     </div>
                     <label for="table-search" class="sr-only">Search</label>
@@ -101,7 +206,7 @@ export default defineComponent({
                                     clip-rule="evenodd"></path>
                             </svg>
                         </div>
-                        <input type="text" id="table-search"
+                        <input type="text" id="table-search" v-model="searchQuery" @input="performSearch"
                             class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Search for items">
                     </div>
@@ -232,7 +337,7 @@ export default defineComponent({
                             </div>
                             <router-link to="/add-product">
                                 <div class="grid justify-items-end">
-                                    <button type="button"
+                                    <button type="button" 
                                         class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-green-300 font-medium rounded-full text-sm px-2 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                         <svg class="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 20 20">
                                             <path stroke="white" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
@@ -243,8 +348,6 @@ export default defineComponent({
                         </div>
                     </div>
                 </div>
-
-
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -257,126 +360,52 @@ export default defineComponent({
                                         <label for="checkbox-all" class="sr-only">checkbox</label>
                                     </div>
                                 </th>
-                                <th scope="col" class="px-4 py-3">Product</th>
+                                <th scope="col" class="px-4 py-3">Image</th>
+                                <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Category</th>                                                                                                
                                 <th scope="col" class="px-4 py-3">Like</th>
-                                <th scope="col" class="px-4 py-3">Sales</th>                                
+                                <th scope="col" class="px-4 py-3">Price</th>                                
                                 <th scope="col" class="px-4 py-3">Last Update</th>
                                 <th scope="col" class="px-4 py-3">Action</th>
 
                             </tr>
                         </thead>
                         
-                        <tbody>                                                                                                                                                                                                                                                           
-                            <tr class="border-b dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700">
-                                <td class="w-4 px-4 py-3">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-table-search-1" type="checkbox"
-                                            onclick="event.stopPropagation()"
-                                            class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                    </div>
-                                </td>
-                                <th scope="row"
-                                    class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/devices/benq-ex2710q.png"
-                                        alt="iMac Front Image" class="w-auto h-8 mr-3">
-                                    Monitor BenQ EX2710Q
-                                </th>
-                                <td class="px-4 py-2">
-                                    <span
-                                        class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">TV/Monitor</span>
-                                </td>                                                               
-                                <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">15</td>                                                                
-                                <td class="px-4 py-2">$1.2M</td>
-                                <td class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">Just now
-                                </td>
-                                <td class=" "> 
-                                    <router-link to="/update-product">
-                                        <button 
-                                        class="ml-3 font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                        <IconEdit></IconEdit>
-                                        </button>
-                                    </router-link>
-                                        <div v-if="showEditModal" class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
-                                            <div class="relative w-full max-w-lg max-h-full">
-                        <!-- Modal content -->
-                        <form @submit.prevent="" action="#" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <!-- Modal header -->
-                            <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600"
-                            >
-                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                    Update Product Window
-                                </h3>
-                                <button @click="closeEditAsync" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
-                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                            </div>
-                            <!-- Modal body -->
-                            <div class="p-6 space-y-6">
-                                <div>
-                                    
-                                </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                                <button @click="closeEditAsync" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                            </div>
-                        </form>
-                    </div>
-                                        </div>
-
-                                        <button @click="openDeleteModal"                                        
-                                        class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                                        <IconDelete></IconDelete>
-                                        </button>
-                                        <!-- begin:: Delete Modal -->                
-                <div v-if="showDeleteModal" class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
-                    <div class="relative w-full max-w-md max-h-full">
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                            <button @click="closeDeleteAsync" type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                </svg>
-                                <span class="sr-only">Close modal</span>
-                            </button>
-                            <div class="p-6 text-center">
-                                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                                </svg>
-                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
-                                <button @click="deleteDataAsync(id)" data-modal-hide="popup-modal" type="button" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                                    Yes, I'm sure
-                                </button>
-                                <button @click="closeDeleteAsync" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end:: Delete Modal -->
-                                   
-                                </td>
-                            </tr>
+                        <tbody>      
+                                                                                                                                                                                                                                                                                 
+                           <!-- ======  -->
+                           
+                                <ProductViewComponent  v-for="el in filteredItems"
+                                    :id=el.productId
+                                    :imagePath=el.productImagePath
+                                    :name= el.productName
+                                    :category=el.productCategoryName
+                                    :like=el.productLikes
+                                    :price=el.productPrice
+                                    :updatedAt=el.productLastUpdate>
+                                </ProductViewComponent>
+                         
                         </tbody>
 
                     </table>
                 </div>
+
+
+
+                
                 <nav class="flex flex-col items-start justify-between p-4 space-y-3 md:flex-row md:items-center md:space-y-0"
                     aria-label="Table navigation">
                     <span class="text-sm font-normal text-gray-500 dark:text-gray-400">
                         Showing
-                        <span class="font-semibold text-gray-900 dark:text-white">1-10</span>
+                        <span class="font-semibold text-gray-900 dark:text-white"> {{ metaData.totalItems }}  -</span>
+                        <span class="font-semibold text-gray-900 dark:text-white"> {{ metaData.pageSize }} </span>
                         of
-                        <span class="font-semibold text-gray-900 dark:text-white">1000</span>
+                        <span class="font-semibold text-gray-900 dark:text-white">{{ metaData.totalPages }}</span>
                     </span>
                     <ul class="inline-flex items-stretch -space-x-px">
-                        <li>
-                            <a href="#"
-                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <li v-show="metaData.hasPrevious == true">
+                            <button @click="GetDataAsync(metaData.currentPage-1)" 
+                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white">
                                 <span class="sr-only">Previous</span>
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -384,30 +413,18 @@ export default defineComponent({
                                         d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                            </a>
+                            </button>
                         </li>
-                        <li>
-                            <a href="#"
-                                class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                        <li v-for="el in metaData.totalPages">
+                            <!-- <a href="#"
+                                class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a> -->
+                            <button @click="GetDataAsync(el)" class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                                {{ el }}
+                            </button>
                         </li>
-                        <li>
-                            <a href="#"
-                                class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-                        </li>
-                        <li>
-                            <a href="#" aria-current="page"
-                                class="z-10 flex items-center justify-center px-3 py-2 text-sm leading-tight border text-primary-600 bg-primary-50 border-primary-300 hover:bg-primary-100 hover:text-primary-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">...</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="flex items-center justify-center px-3 py-2 text-sm leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">100</a>
-                        </li>
-                        <li>
-                            <a href="#"
+                      
+                        <li v-show="metaData.hasNext == true">
+                            <button @click="GetDataAsync(metaData.currentPage+1)" 
                                 class="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                                 <span class="sr-only">Next</span>
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
@@ -416,13 +433,14 @@ export default defineComponent({
                                         d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                                         clip-rule="evenodd" />
                                 </svg>
-                            </a>
+                            </button>
                         </li>
                     </ul>
                 </nav>
             </div>
         </div>
     </section>
+</div>
 </template>
 
 <style scoped></style>

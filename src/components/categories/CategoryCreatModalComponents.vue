@@ -3,7 +3,10 @@ import IconCreate from "@/components/icons/common/IconCreate.vue";
 import { defineComponent } from "vue";
 import axios from '@/plugins/axios';
 import FlowbiteSetup from "@/FlowbiteSetup.vue";
+import { getToken } from '@/helpers/TokenHelper';
+
 export default defineComponent({
+    
     components: {
         IconCreate,FlowbiteSetup
     },
@@ -16,9 +19,11 @@ export default defineComponent({
     },
     methods: {
         async createAsync() {
-            const response = await axios.post("/api/admin/categories", { "name": this.name, "description": this.description }, {
+            const token = getToken();  
+            const response = await axios.post("api/admin/categories", { "name": this.name, "description": this.description }, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    'Authorization': 'Bearer ' + token 
                 },
             });
             if (response.status == 200) {

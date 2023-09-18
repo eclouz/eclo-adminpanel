@@ -1,14 +1,14 @@
 export class ProductCreateDto{
-    BrandId : Number;
-    SubCategoryId: Number;
-    Name: String ;
-    UnitPrice: Number ;
-    Description: String ;
+    brandId : Number;
+    subCategoryId: Number;
+    name: String ;
+    unitPrice: Number ;
+    description: String ;
     constructor(){
-        this.BrandId = 0;
-        this.SubCategoryId = 0;
-        this.Name = "" ;
-        this.UnitPrice = 0;
-        this.Description = "";
+        this.brandId = 0;
+        this.subCategoryId = 0;
+        this.name = "" ;
+        this.unitPrice = 0;
+        this.description = "";
     }
 }
