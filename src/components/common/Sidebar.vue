@@ -7,8 +7,23 @@ import IconUsers from '../icons/IconUsers.vue'
 import IconProducts from '../icons/IconProducts.vue'
 import IconSettings from '../icons/IconSettings.vue'
 import IconSignIn from '../icons/IconSignIn.vue'
+
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
+import { getToken } from '@/helpers/TokenHelper'
+import jwt_decode from "jwt-decode";
+
+const token = getToken();
+const decoded = jwt_decode(token); 
+const json = JSON.stringify(decoded);
+let adminVisibility=false;
+if (json.includes('Head')){
+    adminVisibility=true;
+}
+else{
+    adminVisibility=false;
+}
+
 </script>
 
 <template>
@@ -95,9 +110,15 @@ const { t } = useI18n()
                         </div>
                     </router-link>
                 </li>
-
-
-
+                <li v-if="adminVisibility">
+                    <router-link to="/admins">
+                        <div
+                            class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <IconUsers></IconUsers>
+                            <span class="flex-1 ml-3 whitespace-nowrap">{{ $t('admins') }}</span>
+                        </div>
+                    </router-link>
+                </li>
                 <li>
                     <router-link to="/settings">
                         <div

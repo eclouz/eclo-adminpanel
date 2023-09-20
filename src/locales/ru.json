@@ -6,8 +6,38 @@
     "products": "Продукты",
     "product-update":"Продукты-обновление",
     "users": "Пользователи",
+    "admins": "Админы",
     "settings": "Настройки",
     "subcategories":"Подкатегории",
     "signout": "Выйти",
-    "profile": "Профиль"
+    "profile": "Профиль",
+
+    " all rights reserved.": " Все права защищены.",
+    "about": "О нас",
+    "privacy policy": "Политика конфиденциальности",
+    "licensing": "Лицензирование",
+    "contact": "Контакт",
+
+    "image": "ИЗОБРАЖЕНИЕ",
+    "brand name": "ИМЯ БРЕНДА",
+    "created date": "ДАТА СОЗДАНИЯ",
+    "updated date": "ДАТА ОБНОВЛЕНИЯ",
+    "action": "ДЕЙСТВИЕ",
+
+    "description": "ОПИСАНИЕ",
+    "name": "ИМЯ",
+
+    "fullname": "ПОЛНОЕ ИМЯ",
+    "passport serial": "Серийный № Паспорта",
+    "birth date": "Дата Рождения",
+    "address": "Адрес",
+
+    "admin add window": "Окно добавления администратора",
+    "first name": "Имя",
+    "last name": "Фамилия",
+    "phone number": "Номер телефона",
+    "password": "Пароль",
+    "upload image": "Загрузить изображение",
+    "region": "Область",
+    "district": "Округ"
 }

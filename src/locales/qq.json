@@ -5,8 +5,38 @@
     "discounts": "Шегирмелер",
     "products": "Өнимлер",
     "users": "Пайдаланиўшилар",
+    "admins": "Админлар",
     "settings": "Сазламалар",
     "subcategories":"Төменги категориялар",
     "signout": "Шығыў",
-    "profile": "Профил"
+    "profile": "Профил",
+
+    " all rights reserved.": " Барлық ҳуқықлар қорғаўланған.",
+    "about": "Биз ҳаққымызда",
+    "privacy policy": "Жасырынлық сиясаты",
+    "licensing": "Литсензиялаў ",
+    "contact": "Байланысыў ушын",
+
+    "image": "Сүўрет",
+    "brand name": "Бренд аты",
+    "created date": "Жаратылған сәне",
+    "updated date": "Жаңаланған сәне",
+    "action": "Өзгертиў",
+
+    "description": "Түсиндирме",
+    "name": "Аты",
+
+    "fullname": "Толық аты",
+    "passport serial": "Пасспорт сериаси №",
+    "birth date": "Туўылған күн сәнеси",
+    "address": "Адреси",
+
+    "admin add window": "Админ қосыў әйнеги",
+    "first name": "Аты",
+    "last name": "Фамилиясы",
+    "phone number": "Телефон номери",
+    "password": "Парол",
+    "upload image": "Сүўрет жүклеў",
+    "region": "Уәлаят",
+    "district": "Раён"
 }

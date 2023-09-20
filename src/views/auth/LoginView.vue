@@ -30,7 +30,7 @@ export default defineComponent({
                 document.cookie = "access_token = " + token + "; expires: SESSION; path=/";
                 this.$router.push("/dashboard");
              }
-             else {
+             else{
                 this.existError = true;
              }
         },
