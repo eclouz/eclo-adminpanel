@@ -10,12 +10,14 @@ import type { SubcategoryViewModel } from '@/viewmodels/SubcategoryViewModels';
 import ProductDetailCreateComponent from "@/components/products/ProductDetailCreateComponent.vue";
 import IconDelete from "../../components/icons/common/IconDelete.vue"
 import IconEdit from "../../components/icons/common/IconEdit.vue"
+import ProductDetailViewComponentVue from '@/components/products/ProductDetailViewComponent.vue';
 
     export default defineComponent({
       
       components:{
-        ProductDetailCreateComponent, IconDelete, IconEdit
-      },
+    ProductDetailCreateComponent, IconDelete, IconEdit,ProductDetailViewComponentVue
+    
+},
       props:{                
         brandIdProp: Number,
         subCategoryIdProp:Number,
@@ -25,10 +27,32 @@ import IconEdit from "../../components/icons/common/IconEdit.vue"
       },
       el: '#app',
       methods:{
-          load(){            
+             load(){            
             this.productId;            
             
           },
+          async GetDetailsListAsync(id: any){
+
+              this.isLoaded = false ;
+              const token = getToken();            
+              // debugger;
+              const response = await axios.get<ProductDetailViewModel[]>("api/admin/product/details/"+id,{
+                  headers: {
+                      'Authorization': 'Bearer ' + token
+                  }
+              });
+              if(response.data.length>=0)
+              {
+                  this.isLoaded = true;                                       
+              }
+              else{
+                  this.isLoaded = false;                       
+              }
+
+              console.log(response.data)
+              this.productDetailViewList = response.data;
+              },
+              
           navigateToUpdatePage(id:any) {
             this.$router.push({ name: 'add-details', params: { id: id } });
           },       
@@ -120,11 +144,24 @@ import IconEdit from "../../components/icons/common/IconEdit.vue"
             brandList : [] as BrandViewModel[],
 
             showToast: false,
+            searchQuery: '' as string,
+            productDetailViewList : [] as ProductDetailViewModel[],
+            isLoaded: false as boolean,
+
+
 
         }
       },    
       setup() {
         const { t } = useI18n();
+    },
+    computed: {
+        // filteredItems() {
+        // const query = this.searchQuery.toLowerCase();
+        //     return this.productDetailViewList.filter(productDetail =>
+        //     productDetail.color.toLowerCase().includes(query)
+        //     );
+        // },
     },
     async mounted() {
         this.load();
@@ -324,30 +361,43 @@ style="margin-top: 65px; ">
 
 <!--Start : Product Detail components show -->
 
-<label for="countries" class="block mb-5 text-sm font-medium text-gray-900 dark:text-white"
+<div id="accordion-collapse" data-accordion="collapse"> 
+  <h2 id="accordion-collapse-heading-2">
+    <button @click="GetDetailsListAsync(productId)" type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">      
+      <label for="countries" class="block mb-5 text-sm font-medium text-gray-900 dark:text-white"
 style="font-size: 25px; margin-left: 9px; margin-top: 20px;">Product details</label>
-  <div class="border-b-2 pb-5" >
+      <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+      </svg>
+    </button>
+  </h2>
+  <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+    <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700">
+      <div class="border-b-2 pb-5" >
    
-<div style="width: 15%;" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">    
-        <img style="height: 180px;" class="rounded-t-lg" src="/docs/images/blog/image-1.jpg" alt="" />    
-    <div class="p-5">
-        <!-- <a href="#">
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-        </a> -->
-        <p class="mb-3  font-normal text-gray-700 dark:text-gray-400">Green.</p>
-        <button style="width: 60px;" href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Edit             
-        </button>
-        <button style="width: 60px; background-color: red; margin-top: 5px;" href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              Delete             
-        </button>
-      
+        <!--  -->
+        <div class="wpHorizontal"
+              style="
+              display: flex;
+              flex-wrap: wrap;
+              gap: 10px
+              "
+  >
+        <ProductDetailViewComponentVue v-for="detail in productDetailViewList"
+                :id=detail.id
+                :productId=detail.productId
+                :imagePath=detail.imagePath
+                :color=detail.color
+                >
+
+        </ProductDetailViewComponentVue>
+      </div>
+     </div>
     </div>
-</div>
-
-
-
   </div>
+  
+</div>
+  
 <!--Finish : Product Detail components show -->
 
 

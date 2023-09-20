@@ -58,7 +58,7 @@ export default defineComponent({
              this.nameString = this.name!;
             this.categoryString = this.category!;
             this.likeNumber = this.like!;
-            this.priceNumber = this.priceNumber!;
+            this.priceNumber = this.price!;
             this.updatedAtString = formatDate(this.updatedAt!);            
         },
         navigateToUpdatePage(id:any) {
@@ -67,7 +67,7 @@ export default defineComponent({
         closeEditAsync() {
             this.showEditModal = false;
         },
-        openDeleteModal() {
+        openDeleteModal() { 
             this.showDeleteModal = true;
         },
         closeDeleteAsync() {
@@ -112,14 +112,7 @@ export default defineComponent({
                                         <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                                     </div>
                                 </td>
-                                <th scope="row"
-                                    class="flex items-center px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <!-- <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/devices/benq-ex2710q.png"
-                                        alt="iMac Front Image" class="w-auto h-8 mr-3">
-                                     -->
-                                    <img v-bind:src="imageFullPath" style="width: 40px;height: 55px; "/>
-                                    
-                                </th>
+                               
                                 <td class="px-4 py-2">
                                     <span 
                                         class="bg-primary-100 text-primary-800 text-xs font-medium px-2 py-0.5 rounded dark:bg-primary-900 dark:text-primary-300">

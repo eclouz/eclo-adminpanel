@@ -56,10 +56,11 @@ const router = createRouter({
           component: ()=>import('../views/products/ProductUpdateView.vue')
         },
         {
-          path : 'update-product/:id/add-details',
-          name: 'add-details',
-          component: ()=>import('../views/products/ProductDetailsCreateView.vue')
-        }
+          path : 'update-product/:id/edit-details/:idDetail',
+          name: 'product-detail-edit',
+          component: ()=>import('../views/products/ProductDetailsEditView.vue')
+        },
+        
       ]
     },
     

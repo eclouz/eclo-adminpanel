@@ -15,9 +15,12 @@ export default defineComponent({
         BrandSkeletonComponent,
         BrandSearchAddComponent,
     },
+    watch:{
+        id:'getDataAsync'
+    },
     methods: {
         
-        async getDataAsync(page: Number) {
+        async getDataAsync(page: Number = 1) {
             this.isLoaded = false;
             const token = getToken();            
             const response = await axios.get<BrandViewModel[]>('/api/common/brands?page=1', {
@@ -144,7 +147,9 @@ export default defineComponent({
                             placeholder="Search for items">
                     </div>
                     <!-- end:: Search -->
-                    <BrandSearchAddComponent></BrandSearchAddComponent>
+                    <BrandSearchAddComponent
+                    :refresh-action="getDataAsync"
+                    ></BrandSearchAddComponent>
                 </div>
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 text-center">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -183,7 +188,8 @@ export default defineComponent({
                                 :brandIconPath=element.brandIconPath
                                 :name=element.name
                                 :createdAt=element.createdAt
-                                :updatedAt=element.updatedAt>
+                                :updatedAt=element.updatedAt
+                                :refresh-action="getDataAsync">
                             </BrandViewComponent>
                         </template>
                     </tbody>

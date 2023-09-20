@@ -39,11 +39,11 @@ export default defineComponent({
             {
                 this.isLoaded = true;                                       
             }
-            // else{
-            //     this.isLoaded = false;                       
-            // }
+            else{
+                this.isLoaded = false;                       
+            }
             
-            // console.log(response.data)
+            console.log(response.data)
             this.productList = response.data;
 
         
@@ -359,8 +359,7 @@ export default defineComponent({
                                             class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                         <label for="checkbox-all" class="sr-only">checkbox</label>
                                     </div>
-                                </th>
-                                <th scope="col" class="px-4 py-3">Image</th>
+                                </th>                                
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Category</th>                                                                                                
                                 <th scope="col" class="px-4 py-3">Like</th>
@@ -371,20 +370,15 @@ export default defineComponent({
                             </tr>
                         </thead>
                         
-                        <tbody>      
-                                                                                                                                                                                                                                                                                 
-                           <!-- ======  -->
-                           
+                        <tbody>                                                                                                                                                                                                                                                                                                                                             
                                 <ProductViewComponent  v-for="el in filteredItems"
-                                    :id=el.productId
-                                    :imagePath=el.productImagePath
+                                    :id=el.productId                                    
                                     :name= el.productName
                                     :category=el.productCategoryName
                                     :like=el.productLikes
                                     :price=el.productPrice
                                     :updatedAt=el.productLastUpdate>
-                                </ProductViewComponent>
-                         
+                                </ProductViewComponent>                         
                         </tbody>
 
                     </table>
@@ -405,7 +399,7 @@ export default defineComponent({
                     <ul class="inline-flex items-stretch -space-x-px">
                         <li v-show="metaData.hasPrevious == true">
                             <button @click="GetDataAsync(metaData.currentPage-1)" 
-                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white">
+                                class="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-00 dark:hover:text-white">
                                 <span class="sr-only">Previous</span>
                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20"
                                     xmlns="http://www.w3.org/2000/svg">

@@ -7,6 +7,9 @@ import axios from '@/plugins/axios';
 import { getToken } from '@/helpers/TokenHelper';
 
 export default defineComponent({
+    props:{
+        refreshAction: Function,
+    },
     components: {
         IconAdd
     },
@@ -25,19 +28,24 @@ export default defineComponent({
                 const formData = new FormData();
                 formData.append('Name', this.name.toString());
                 formData.append('BrandIconPath', this.iconFilePath);
-                try {
-                    const response = await axios.post('/api/admin/brands', formData, {
+                
+                    const response = await axios.post('api/admin/brands', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data',
                             'Authorization': 'Bearer ' + token                          
                         },
                     });
-                    console.log('Upload successful!', response.data);
-                    this.showCreateModal = false;
-                    location.reload();
-                } catch (error) {
-                    console.error('Error uploading file:', error);
-                }
+                    if(response.status == 200){
+
+                        console.log('Upload successful!', response.data);
+                        this.showCreateModal = false;
+                        this.refreshAction();
+                        location.reload();
+
+                    }else{
+                        console.log("Not uploaded  \n something went wrong");
+                    }
+              
             }
         },
         handleFileChange(event: any) {
@@ -67,7 +75,7 @@ export default defineComponent({
                 <IconAdd></IconAdd>
             </button>
         </div>
-        <form v-if="showCreateModal" action="#"
+        <form @submit.prevent="uploadImageAsync" v-if="showCreateModal" 
             class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
             <div class="relative w-full max-w-lg max-h-full">
                 <!-- Modal content -->
@@ -108,8 +116,9 @@ export default defineComponent({
                     </div>
                     <!-- Modal footer -->
                     <div class="flex items-center p-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button @click="uploadImageAsync" type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                    <button  type="submit"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >Save</button>
                     <button @click="closeCreateModal" type="button"
                         class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                 </div>

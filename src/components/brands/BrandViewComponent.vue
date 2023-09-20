@@ -19,7 +19,8 @@ export default defineComponent({
 
         nameProp: String,
         iconPath: String,
-        idProp: Number
+        idProp: Number,
+        refreshAction: Function,
     },
     data() {
         return {
@@ -79,8 +80,9 @@ export default defineComponent({
                 headers:{
                     'Authorization': 'Bearer ' + token
                 }
-            })
-            location.reload();
+            });
+            this.showDeleteModal = false;
+            this.refreshAction();
         },
         openDeleteModal() {
             this.showDeleteModal = true;
