@@ -6,7 +6,6 @@ import {
     initCollapses, 
     initDials, 
     initDismisses, 
-    initDrawers, 
     initDropdowns, 
     initModals, 
     initPopovers, 
@@ -20,7 +19,6 @@ onMounted(() => {
     initCollapses();
     initDials();
     initDismisses();
-    initDrawers();
     initDropdowns();
     initModals();
     initPopovers();
