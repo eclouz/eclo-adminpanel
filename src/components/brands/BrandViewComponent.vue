@@ -5,7 +5,7 @@ import { formatDate } from "@/helpers/DateHelper"
 import { defineComponent } from 'vue'
 import axios from '@/plugins/axios'
 import type { BrandViewModel } from "@/viewmodels/BrandViewModels"
-
+import { getToken } from '@/helpers/TokenHelper'
 export default defineComponent({
     components: {
         IconDelete, IconEdit
@@ -19,7 +19,8 @@ export default defineComponent({
 
         nameProp: String,
         iconPath: String,
-        idProp: Number
+        idProp: Number,
+        refreshAction: Function,
     },
     data() {
         return {
@@ -74,8 +75,14 @@ export default defineComponent({
             this.updatedAtString = formatDate(this.updatedAt!);
         },
         async deleteDataAsync(id:any){
-            await axios.delete("/api/admin/brands/" + id)
-            location.reload();
+            const token = getToken();   
+            await axios.delete("/api/admin/brands/" + id,{
+                headers:{
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            this.showDeleteModal = false;
+            this.refreshAction();
         },
         openDeleteModal() {
             this.showDeleteModal = true;
@@ -110,7 +117,7 @@ export default defineComponent({
         <td class="px-6 py-4">
             #{{ id }}
         </td>
-        <td class="w-32 p-6">
+        <td class="w-32 p-6" style="width: 25px; height: 25px;">
             <img v-bind:src="iconFullPath"/>
         </td>
         <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -148,7 +155,7 @@ export default defineComponent({
                                     <span class="sr-only">Close modal</span>
                                 </button>
                             </div>
-                            <!-- Modal body -->
+                            <!-- Modal body --> 
                             <div class="p-6 space-y-6">
                                 <div>
                                     <div class="mb-6">

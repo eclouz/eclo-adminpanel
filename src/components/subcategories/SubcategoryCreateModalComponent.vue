@@ -4,6 +4,7 @@ import { CategoryViewModel } from '@/viewmodels/CategoryViewModels';
 import { defineComponent } from "vue";
 import axios from '@/plugins/axios';
 import FlowbiteSetup from "@/FlowbiteSetup.vue";
+import { getToken } from '@/helpers/TokenHelper';
 
 export default defineComponent({
     components: {
@@ -19,10 +20,14 @@ export default defineComponent({
         };
     },
     methods: {
+        
         async createAsync() {
+            const token = getToken();  
+
             const response = await axios.post("/api/admin/subcategories", { "CategoryId": this.categoryId, "name": this.name },  {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    'Authorization': 'Bearer ' + token 
                 },
             });
             if (response.status == 200) {

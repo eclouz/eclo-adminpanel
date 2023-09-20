@@ -49,9 +49,21 @@ const router = createRouter({
         {
           path: 'add-product',
           component: ()=>import('../views/products/ProductAddView.vue')
-        }
+        },
+        {
+          path : 'update-product/:id',
+          name: 'product-update',
+          component: ()=>import('../views/products/ProductUpdateView.vue')
+        },
+        {
+          path : 'update-product/:id/edit-details/:idDetail',
+          name: 'product-detail-edit',
+          component: ()=>import('../views/products/ProductDetailsEditView.vue')
+        },
+        
       ]
     },
+    
     {
       path: '/auth',
       component: () => import('../layouts/AuthLayout.vue'),
