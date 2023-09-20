@@ -5,8 +5,38 @@
     "discounts": "Chegirmalar",
     "products": "Maxsulotlar",
     "users": "Foydalanuvchilar",
+    "admins": "Adminlar",
     "settings": "Sozlamalar",
     "subcategories": "Subkategoriyalar",
     "signout": "Сhiqish",
-    "profile": "Profil"
+    "profile": "Profil",
+
+    " all rights reserved.": " Barcha huquqlar himoyalangan.",
+    "about": "Biz haqimizda",
+    "privacy policy": "Maxfiylik siyosati",
+    "licensing": "Litsenziyalash",
+    "contact": "Bog‘lanish uchun",
+
+    "image": "RASM",
+    "brand name": "BREND NOMI",
+    "created date": "YARATILGAN SANA",
+    "updated date": "YANGILANGAN SANA",
+    "action": "O'ZGARTIRISH",
+
+    "description": "IZOH",
+    "name": "NOMI",
+
+    "fullname": "TO'LIQ ISMI",
+    "passport serial": "Passport Seria №",
+    "birth date": "Tug'ilgan kun sanasi",
+    "address": "Manzili",
+
+    "admin add window": "Admin qo'shish oynasi",
+    "first name": "Ism",
+    "last name": "Familiya",
+    "phone number": "Telefon raqami",
+    "password": "Parol",
+    "upload image": "Rasm yuklash",
+    "region": "Viloyat",
+    "district": "Tuman"
 }

@@ -20,7 +20,7 @@ export default defineComponent({
              loginDto.phoneNumber = this.phone;
              loginDto.password = this.password;
              var jsonContent:string = JSON.stringify(loginDto);
-             const response = await axios.post('api/auth/login', jsonContent, {
+             const response = await axios.post('api/admin/auth/login', jsonContent, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -30,7 +30,7 @@ export default defineComponent({
                 document.cookie = "access_token = " + token + "; expires: SESSION; path=/";
                 this.$router.push("/dashboard");
              }
-             else {
+             else{
                 this.existError = true;
              }
         },

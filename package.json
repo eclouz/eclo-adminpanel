@@ -14,9 +14,9 @@
   "tsConfig": "tsconfig.app.json",
   "aot": true,
   "assets": [
-      "src/favicon.ico",
-      "src/assets",
-      "src/web.config"
+    "src/favicon.ico",
+    "src/assets",
+    "src/web.config"
   ],
   "dependencies": {
     "apexcharts": "^3.41.1",
@@ -24,6 +24,7 @@
     "flowbite": "^1.8.1",
     "flowbite-datepicker": "^1.2.2",
     "i18n-next": "^0.0.4",
+    "jwt-decode": "^3.1.2",
     "next-i18next": "^14.0.0",
     "pinia": "^2.1.4",
     "vue": "^3.3.4",

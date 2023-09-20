@@ -1,19 +1,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { UserViewModel } from '@/viewmodels/UserViewModels'
-import UserViewComponent from '@/components/users/UserViewComponent.vue'
+import { AdminViewModel } from '@/viewmodels/AdminViewModels'
+import AdminViewComponent from '@/components/admins/AdminViewComponent.vue'
+import AdminSearchAddComponent from '@/components/admins/AdminSearchAddComponent.vue'
 import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
 
 export default defineComponent({
     name: 'SearchItems',
     components: {
-        UserViewComponent
+        AdminViewComponent,
+        AdminSearchAddComponent
     },
     methods: {
         async getDataAsync() {
             const token = getToken();
-            const response = await axios.get<UserViewModel[]>('/api/admin/users?page=1', {
+            const response = await axios.get<AdminViewModel[]>('/api/head/admins?page=1', {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
@@ -39,7 +41,7 @@ export default defineComponent({
     data() {
         return {
             searchQuery: '',
-            usersList: [] as UserViewModel[]
+            usersList: [] as AdminViewModel[]
         }
     },
     computed: {
@@ -51,6 +53,9 @@ export default defineComponent({
                 user.phoneNumber.toLowerCase().includes(query)
             );
         },
+    },
+    setup(){
+
     },
     async mounted() {
         await this.getDataAsync();
@@ -82,7 +87,7 @@ export default defineComponent({
             </svg>
             <a
               class="ml-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ml-2 dark:text-gray-400 dark:hover:text-white">
-              {{ $t('users') }} </a>
+              {{ $t('admins') }} </a>
           </div>
         </li>
       </ol>
@@ -91,7 +96,7 @@ export default defineComponent({
 
     <div class="relative shadow-md sm:rounded-lg">
         <!-- begin:: SearchPanel -->
-        <div class="flex items-center justify-end py-4 bg-white dark:bg-gray-800">
+        <div class="flex items-center justify-between py-4 bg-white dark:bg-gray-800">
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -99,8 +104,9 @@ export default defineComponent({
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input @keyup.enter="searchOnEnter" v-model="searchQuery" @input="performSearch" type="text" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for users">
+                <input @keyup.enter="searchOnEnter" v-model="searchQuery" @input="performSearch" type="text" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for admins">
             </div>
+            <AdminSearchAddComponent></AdminSearchAddComponent>
         </div>
         <!-- end:: SearchPanel -->
         <!-- begin:: Users -->
@@ -108,12 +114,12 @@ export default defineComponent({
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" class="p-4">
+                        <!-- <th scope="col" class="p-4">
                             <div class="flex items-center">
                                 <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="checkbox-all-search" class="sr-only">checkbox</label>
                             </div>
-                        </th>
+                        </th> -->
                         <th scope="col" class="px-6 py-3">
                             <span> #Id </span>
                         </th>
@@ -135,11 +141,14 @@ export default defineComponent({
                         <th scope="col" class="px-6 py-3">
                             {{ $t('updated date') }}
                         </th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ $t('action') }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
                     <template v-for="element in filteredItems">
-                        <UserViewComponent
+                        <AdminViewComponent
                             :id=element.id
                             :firstName=element.firstName
                             :lastName=element.lastName
@@ -152,7 +161,7 @@ export default defineComponent({
                             :address=element.address
                             :createdAt=element.createdAt
                             :updatedAt=element.updatedAt>
-                        </UserViewComponent>
+                        </AdminViewComponent>
                     </template>
                 </tbody>
             </table>
