@@ -1,3 +1,7 @@
+<script lang="ts">
+    import { useI18n } from 'vue-i18n'
+</script>
+
 <template>
     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
         <tr>
@@ -12,19 +16,19 @@
                 Id
             </th>
             <th scope="col" class="px-6 py-3">
-                Name
+                {{ $t('name') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Category
+                {{ $t('categories') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Create Date
+                {{ $t('created date') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Update Date
+                {{ $t('updated date') }}
             </th>
             <th scope="col" class="px-6 py-3">
-                Action
+                {{ $t('action') }}
             </th>
         </tr>
     </thead>

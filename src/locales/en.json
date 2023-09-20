@@ -6,8 +6,38 @@
     "products": "Products",
     "product-update":"Products-update",
     "users": "Users",
+    "admins": "Admins",
     "settings": "Settings",
     "subcategories":"Subcategories",
     "signout": "Sign Out",
-    "profile": "Profile"
+    "profile": "Profile",
+
+    " all rights reserved.": " All Rights Reserved.",
+    "about": "About",
+    "privacy policy": "Privacy Policy",
+    "licensing": "Licensing",
+    "contact": "Contact",
+
+    "image": "IMAGE",
+    "brand name": "BRAND NAME",
+    "created date": "CREATED DATE",
+    "updated date": "UPDATED DATE",
+    "action": "ACTION",
+
+    "description": "DESCRIPTION",
+    "name": "NAME",
+
+    "fullname": "FULLNAME",
+    "passport serial": "Passport Serial №",
+    "birth date": "Birth Date",
+    "address": "Address",
+
+    "admin add window": "Admin add window",
+    "first name": "First Name",
+    "last name": "Last Name",
+    "phone number": "Phone Number",
+    "password": "Password",
+    "upload image": "Upload Image",
+    "region": "Region",
+    "district": "District"
 }
