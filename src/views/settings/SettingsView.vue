@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
+import AdminSettingsComponent from '@/components/admins/AdminSettingsComponent.vue';
 const t = useI18n()
 </script>
 
@@ -34,7 +35,7 @@ const t = useI18n()
       </ol>
     </nav>
     <!--end:: BreadCrumb-->
-    <p class="text-6xl">Settings</p>
+    <AdminSettingsComponent></AdminSettingsComponent>
 </template>
 
 <style scoped></style>

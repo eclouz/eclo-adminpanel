@@ -5,6 +5,7 @@ import { formatDate } from '@/helpers/DateHelper'
 import { defineComponent } from 'vue'
 import axios from '@/plugins/axios'
 import type { AdminViewModel } from "@/viewmodels/AdminViewModels"
+import { getToken } from "@/helpers/TokenHelper"
 export default defineComponent ({
     components: {
         IconDelete, IconEdit
@@ -22,19 +23,7 @@ export default defineComponent ({
         district: String,
         address: String,
         createdAt: Date,
-        updatedAt: Date,
-
-        idProp: Number,
-        firstnameProp: String,
-        lastnameProp: String,
-        phonenumberProp: String,
-        imagepathProp: String,
-        passportserialnumberProp: String,
-        birthdateProp: String,
-        passwordProp: String,
-        regionProp: String,
-        districtProp: String,
-        addressProp: String
+        updatedAt: Date
     },
     data() {
         return {
@@ -63,21 +52,23 @@ export default defineComponent ({
     methods: {
         async submitForm() {
             const formData = new FormData();
-            formData.append('FirstName', this.adminfirstName.toString());
-            formData.append('LastName', this.adminlastName.toString());
+            const token = getToken();   
+            formData.append('FirstName', this.adminfirstName);
+            formData.append('LastName', this.adminlastName);
             formData.append('BirthDate', this.adminbirthDate.toString());
-            formData.append('PhoneNumber', this.adminphoneNumber.toString());
-            formData.append('Password', this.adminpassword.toString());
-            formData.append('PassportSerialNumber', this.adminpassportSerialNumber.toString());
-            formData.append('Region', this.adminregion.toString());
-            formData.append('District', this.admindistrict.toString());
-            formData.append('Address', this.adminaddress.toString());
+            formData.append('PhoneNumber', this.adminphoneNumber);
+            formData.append('Password', this.adminpassword);
+            formData.append('PassportSerialNumber', this.adminpassportSerialNumber);
+            formData.append('Region', this.adminregion);
+            formData.append('District', this.admindistrict);
+            formData.append('Address', this.adminaddress);
             if (this.adminimagePath) {
                 formData.append('ImagePath', this.adminimagePath);
                 try {
-                    const response = await axios.put('/api/admin/profile/' + this.id, formData, {
+                    const response = await axios.put('/api/head/admins/' + this.id, formData, {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': 'Bearer ' + token
                         }
                     });
                     console.log('Update successful', response.data);
@@ -107,7 +98,12 @@ export default defineComponent ({
             this.updatedAtString = formatDate(this.updatedAt!);
         },
         async deleteDataAsync(id:any){
-            await axios.delete("/api/head/admins/" + id)
+            const token = getToken();
+            await axios.delete("/api/head/admins/" + id, {
+                headers:{
+                    'Authorization': 'Bearer ' + token
+                }
+            })
             location.reload();
         },
         openDeleteModal() {
@@ -117,16 +113,16 @@ export default defineComponent ({
             this.showDeleteModal = false;
         },
         openEditModal() {
-            this.adminfirstName = this.firstnameProp!;
-            this.adminlastName = this.lastnameProp!;
-            this.adminphoneNumber = this.phonenumberProp!;
-            this.imageFullPath = this.imagepathProp!;
-            this.adminpassportSerialNumber = this.passportserialnumberProp!;
-            this.birthDateString = this.birthdateProp!;
-            this.adminpassword = this.passwordProp!;
-            this.adminregion = this.regionProp!;
-            this.admindistrict = this.districtProp!;
-            this.adminaddress = this.districtProp!;
+            this.adminfirstName = this.firstName?.toString()!;
+            this.adminlastName = this.lastName?.toString()!;
+            this.adminphoneNumber = this.phoneNumber!;
+            this.imageFullPath = this.imagePath!;
+            this.adminpassportSerialNumber = this.passportSerialNumber!;
+            this.birthDateString = this.birthDate?.toString()!;
+            this.adminpassword = this.password!;
+            this.adminregion = this.region!;
+            this.admindistrict = this.district!;
+            this.adminaddress = this.address!;
 
             this.showEditModal = true;
         },
@@ -181,18 +177,7 @@ export default defineComponent ({
                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
                     <IconEdit></IconEdit>
                 </button>
-                <div :id-prop=id
-                    :firstname-prop=firstName
-                    :lastname-prop=lastName
-                    :phonenumber-prop=phoneNumber
-                    :imagepath-prop=imagePath
-                    :passportserialnumber-prop=passportSerialNumber
-                    :birthdate-prop=birthDate
-                    :password-prop=password
-                    :region-prop=region
-                    :district-prop=district
-                    :address-prop=district
-                    v-if="showEditModal" class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
+                <div v-if="showEditModal" class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
                     <div class="relative w-full max-w-lg max-h-full">
                         <!-- Modal content -->
                         <form @submit.prevent="submitForm" action="#" class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -217,24 +202,24 @@ export default defineComponent ({
                                     <div class="grid gap-6 mb-5 md:grid-cols-2">
                                         <div>
                                             <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('first name') }}</label>
-                                            <input type="text" v-model="firstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
+                                            <input type="text" v-model="adminfirstName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
                                         </div>
                                         <div>
                                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('last name') }}</label>
-                                            <input type="text" v-model="lastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
+                                            <input type="text" v-model="adminlastName" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
                                         </div>
                                     </div>
                                     <div class="grid gap-3 mb-3 md:grid-cols-2">
                                         <div>
                                             <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('phone number') }}</label>
-                                            <input type="tel" v-model="phoneNumber"
+                                            <input type="tel" v-model="adminphoneNumber"
                                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                 placeholder="+998wwXXXyyZZ" pattern="+[0-9]{3}[0-9]{2}[0-9]{3}[0-9]{2}[0-9]{2}"
                                                 required>
                                         </div>
                                         <div class="mb-2">
                                             <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('password') }}</label>
-                                            <input type="password" v-model="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
+                                            <input type="password" v-model="adminpassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="•••••••••" required>
                                         </div>
                                     </div>
                                     <div class="grid gap-6 mb-5 md:grid-cols-2">
@@ -253,27 +238,27 @@ export default defineComponent ({
                                                         <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                                     </svg>
                                                 </div>
-                                                <input v-model="birthDate" datepicker datepicker-buttons type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+                                                <input v-model="adminbirthDate" datepicker datepicker-buttons type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="grid gap-3 mb-3 md:grid-cols-3">
                                         <div>
                                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('region') }}</label>
-                                            <input type="text" v-model="region" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nukus" required>
+                                            <input type="text" v-model="adminregion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nukus" required>
                                         </div>
                                     <div>
                                         <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('district') }}</label>
-                                        <input type="text" v-model="district" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bozatau" required>
+                                        <input type="text" v-model="admindistrict" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Bozatau" required>
                                     </div>
                                         <div>
                                             <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('passport serial') }}</label>
-                                            <input type="text" v-model="passportSerialNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="KA1234567" required>
+                                            <input type="text" v-model="adminpassportSerialNumber" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="KA1234567" required>
                                         </div>
                                     </div>
                                     <div class="mb-2">                                                   
                                         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ $t('address') }}</label>
-                                        <input v-model="address" rows="4" class="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your current address...">
+                                        <input v-model="adminaddress" rows="4" class="block w-full p-2.5 text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your current address...">
                                     </div>
                                 </form>
                             </div>
@@ -286,7 +271,6 @@ export default defineComponent ({
                     </div>
                 </div>
                 <!-- end:: Edit Modal -->
-
                 <!-- begin:: Delete Modal -->
                 <button @click="openDeleteModal"
                     class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
