@@ -2,11 +2,8 @@
 import { defineComponent } from 'vue'
 import IconAdd from '../icons/common/IconAdd.vue'
 import axios from '@/plugins/axios';
-import { useI18n } from 'vue-i18n';
+import { useI18n } from 'vue-i18n'
 import { getToken } from '@/helpers/TokenHelper';
-// import { getToken } from "../../helpers/TokenHelper";
-
-
 
 export default defineComponent({
     components: {
@@ -29,7 +26,7 @@ export default defineComponent({
     },
     methods: {
         async uploadImageAsync() {
-            if (this.imagePath) {                
+            if (this.imagePath) {
                 try {
                     const token = getToken();
                     const response = await axios.post('/api/head/admins', {
@@ -87,7 +84,7 @@ export default defineComponent({
                 <IconAdd></IconAdd>
             </button>
         </div>
-        <form v-if="showCreateModal"
+        <form v-if="showCreateModal" action="#"
             class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
             <div class="relative w-full max-w-lg max-h-full">
                 <!-- Modal content -->
@@ -185,4 +182,4 @@ export default defineComponent({
         </form>
         <!-- end:: Admin ADD -->
     </div>
-</template>../../helpers/TokenHelper
+</template>
