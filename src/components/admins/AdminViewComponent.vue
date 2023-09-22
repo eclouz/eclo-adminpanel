@@ -1,7 +1,8 @@
 <script lang="ts">
 import IconDelete from "../../components/icons/common/IconDelete.vue"
 import IconEdit from "../../components/icons/common/IconEdit.vue"
-import { formatDate } from '@/helpers/DateHelper'
+import { formatDate } from "../../helpers/DateHelper";
+
 import { defineComponent } from 'vue'
 import axios from '@/plugins/axios'
 import type { AdminViewModel } from "@/viewmodels/AdminViewModels"
@@ -43,7 +44,7 @@ export default defineComponent ({
             showEditModal: false as Boolean,
 
             baseURL: "" as String,
-            imageFullPath: "" as String,
+            imageFullPath: "" as string,
             birthDateString: "" as String,
             createdAtString: "" as String,
             updatedAtString: "" as String,
@@ -318,4 +319,4 @@ export default defineComponent ({
             </div>
         </td>
     </tr>
-</template>
+</template>../../Helpers/DateHelper../../helpers/DateHelper

@@ -18,13 +18,16 @@ export default defineComponent({
         productIdProp:Number,
         imagePathProp:String,
         colorProp:String,
+
+        refreshAction: Function,
+
     },
     data() {
         return{
             baseURL: "" as String,
             productIdNumber: 0 as number,
             idNumber: 0 as Number,
-            imageFullPath: "" as String,
+            imageFullPath: "" as string,
             imageFilePath: null as File | null,
             colorString:"" as String,
             showEditModal: false as Boolean,
@@ -42,6 +45,8 @@ export default defineComponent({
         },
         navigateToUpdatePage(id:any) {
             this.$router.push({ name: 'product-detail-edit', params: { idDetail: id } });
+            // this.refreshAction();
+
         },    
         closeEditAsync() {
             this.showEditModal = false;
@@ -127,4 +132,4 @@ export default defineComponent({
 
 </template>
 <style>
-</style>
+</style>@/Helpers/DateHelper@/Helpers/TokenHelper

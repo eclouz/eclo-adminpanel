@@ -24,15 +24,15 @@ export default defineComponent ({
     },
     data() {
         return {
-            baseURL: "" as String,
-            createdAtString: "" as String,
-            updatedAtString: "" as String,
+            baseURL: "" as string,
+            createdAtString: "" as string,
+            updatedAtString: "" as string,
             showEditModal: false as Boolean,
             showDeleteModal: false as Boolean,
 
             discountName: "" as String,
             discountPercentage: 0 as Number,
-            discountDescription: "" as String
+            discountDescription: "" as string
         }
     },
     methods: {
@@ -179,4 +179,4 @@ export default defineComponent ({
     </tr>
 </template>
 
-<style scoped></style>
+<style scoped></style>@/Helpers/DateHelper

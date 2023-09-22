@@ -8,7 +8,13 @@ export const defaultlocale: string = 'qq';
 
 const i18n: any = createI18n ({
     legacy: false,
-    locale: !!localStorage.getItem('language') ? localStorage.getItem('language') : defaultlocale,
+    _locale: !!localStorage.getItem('language') ? localStorage.getItem('language') : defaultlocale,
+    get locale() {
+        return this._locale
+    },
+    set locale(value) {
+        this._locale = value
+    },
     fallbackloacle: 'qq',
     messages: {
         uz, en, ru, qq

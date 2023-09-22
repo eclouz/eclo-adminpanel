@@ -40,6 +40,7 @@ export default defineComponent({
                 // this.$router.push("update-product/");
                 console.log('Upload successful!', response.data);
                 this.hideModal();
+                location.reload();                
                 this.closeCreateModal();
                 
                     // setTimeout(() => { this.showToast = false }, 5000);
@@ -203,4 +204,4 @@ export default defineComponent({
 .toast-close:hover {
   color: #333333;
 }
-</style>
+</style>@/Helpers/TokenHelper

@@ -5,7 +5,7 @@ import CategoryTabelBodyComponents from '@/components/categories/CategoryTabelBo
 import CategoryBreadCrumbComponent from "@/components/categories/CategoryBreadCrumbComponent.vue";
 import CategoryCreatModalComponents from "@/components/categories/CategoryCreatModalComponents.vue";
 import CategorySkeletonComponent from '@/components/categories/CategorySkeletonComponent.vue';
-import CategoryTableHeadComponent from "@/components/categories/CategoryTableHeadComponents.vue";
+// import CategoryTableHeadComponent from "@/components/categories/CategoryTableHeadComponents.vue";
 import axios from '@/plugins/axios';
 import { useI18n } from 'vue-i18n';
 import FlowbiteSetup from "@/FlowbiteSetup.vue";
@@ -18,7 +18,7 @@ export default defineComponent({
         CategoryBreadCrumbComponent,
         CategoryCreatModalComponents,
         CategorySkeletonComponent,
-        CategoryTableHeadComponent
+        // CategoryTableHeadComponent
     },
     methods: {
         async getDataAsync() {

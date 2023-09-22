@@ -39,7 +39,7 @@ export default defineComponent({
 
                         console.log('Upload successful!', response.data);
                         this.showCreateModal = false;
-                        this.refreshAction();
+                        // this.refreshAction();
                         location.reload();
 
                     }else{
@@ -127,4 +127,4 @@ export default defineComponent({
         </form>
         <!-- end:: Brand ADD -->
     </div>
-</template>
+</template>@/helpers/TokenHelper

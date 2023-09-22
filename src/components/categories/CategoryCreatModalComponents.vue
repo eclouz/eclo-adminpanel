@@ -13,7 +13,7 @@ export default defineComponent({
     data() {
         return {
             name: "" as String,
-            description: "" as String,
+            description: "" as string,
             createErorr: false as Boolean
         };
     },
@@ -29,6 +29,8 @@ export default defineComponent({
             if (response.status == 200) {
                 this.$router.push("/categories");
                 this.hideModal();
+                location.reload();                
+
 
             }
             else {
@@ -127,4 +129,4 @@ export default defineComponent({
         </div>
     </div>
     <!--end:: Modal Window-->
-</template>
+</template>@/Helpers/TokenHelper

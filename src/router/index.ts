@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -95,4 +97,35 @@ const router = createRouter({
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  const token = Cookies.get('token');
+  if (to.path !== '/auth/login') {
+    if (token) {
+      try {
+        const payload = jwtDecode(token);
+        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+        if (payload.exp < currentTime) {
+          // Token has expired, redirect to login
+          next('/auth/login');
+        } else {
+           // Kullanıcı rollerini ve sayfa erişimini kontrol et
+           if (payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Admin') {
+            // Kullanıcının "User" rolü varsa, kimlik doğrulama sayfalarına erişim engelle
+            next('/'); // Sayfaya erişimi engelle
+          } else {
+            // Diğer roller için kimlik doğrulama sayfalarına erişimi sağla
+            next();
+          }
+        }
+      } catch (error) {
+        // Handle invalid token
+        next('/auth/login');
+      }
+    } else {
+      next('/auth/login');
+    }
+  } else {
+    next();
+  }
+});
 export default router

@@ -2,8 +2,11 @@
 import { defineComponent } from 'vue'
 import IconAdd from '../icons/common/IconAdd.vue'
 import axios from '@/plugins/axios';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 import { getToken } from '@/helpers/TokenHelper';
+// import { getToken } from "../../helpers/TokenHelper";
+
+
 
 export default defineComponent({
     components: {
@@ -26,20 +29,7 @@ export default defineComponent({
     },
     methods: {
         async uploadImageAsync() {
-            if (this.imagePath) {
-                //debugger;
-                // const formData = new FormData();
-                // formData.append('FirstName', this.firstName.toString());
-                // formData.append('LastName', this.lastName.toString());
-                // formData.append('BirthDate', this.birthDate.toString());
-                // formData.append('PhoneNumber', this.phoneNumber.toString());
-                // formData.append('Password', this.password.toString());
-                // formData.append('PassportSerialNumber', this.passportSerialNumber.toString());
-                // formData.append('Region', this.region.toString());
-                // formData.append('District', this.district.toString());
-                // formData.append('Address', this.address.toString());
-                // formData.append('ImagePath', this.imagePath);
-                // console.log(this.firstName);
+            if (this.imagePath) {                
                 try {
                     const token = getToken();
                     const response = await axios.post('/api/head/admins', {
@@ -195,4 +185,4 @@ export default defineComponent({
         </form>
         <!-- end:: Admin ADD -->
     </div>
-</template>
+</template>../../helpers/TokenHelper
