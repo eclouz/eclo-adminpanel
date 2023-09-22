@@ -18,6 +18,7 @@ export default defineComponent({
       const token = getToken();
       const response = await axios.get<DiscountViewModel[]>('/api/common/discounts?page=1', {
         headers: {
+
           'Authorization': 'Bearer ' + token
         }
       });
@@ -38,9 +39,11 @@ export default defineComponent({
       this.showCreateModal = false;
     },
     async createAsync() {
+      const token = getToken();
       const response = await axios.post("/api/admin/discounts", { "name": this.name, "percentage": this.percentage, "description": this.description }, {
         headers: {
           "Content-Type": "multipart/form-data",
+          'Authorization': 'Bearer ' + token
         },
       });
       if (response.status == 200) {
