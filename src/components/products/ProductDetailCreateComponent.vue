@@ -4,7 +4,7 @@ import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
 import FlowbiteSetup from "@/FlowbiteSetup.vue";
 export default defineComponent({
-    
+ 
     components: {
         FlowbiteSetup
     },
@@ -24,8 +24,12 @@ export default defineComponent({
         async createAsync() {
             debugger;
             const token = getToken();  
-            const response = await axios.post("api/admin/product/details", { "ProductId": this.productId , 
-            "ImagePath":this.ImagePath,"Color":this.Color  }, {
+            console.log(this.$route.params.id)    
+            console.log(this.ImagePath)    
+            console.log(this.Color)    
+
+            const response = await axios.post("api/admin/product/details", { "productId": this.productId , 
+            "imagePath":this.ImagePath,"color":this.Color  }, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     'Authorization': 'Bearer ' + token 
@@ -33,12 +37,13 @@ export default defineComponent({
             });
             // console.log(response.data);
             if (response.status == 200) {
-                // this.$router.push("/update-product/"+this.productId);
+                // this.$router.push("update-product/");
                 console.log('Upload successful!', response.data);
                 this.hideModal();
-
-                this.showToast = true;
-                    setTimeout(() => { this.showToast = false }, 5000);
+                location.reload();                
+                this.closeCreateModal();
+                
+                    // setTimeout(() => { this.showToast = false }, 5000);
             }
             else {
                 this.createErorr = true;
@@ -65,8 +70,18 @@ export default defineComponent({
                 modal.classList.add("hidden");
                 modal.setAttribute("aria-hidden", "true");
             }
+        },
+        load(){
+            // this.productId = this.$route.params.id;
+            // console.log(this.productId)
+            // alert(this.productId);
         }
-    },
+        
+    }, 
+     mounted() {
+        this.load();
+    }
+
 
 });
 </script>
@@ -91,7 +106,7 @@ export default defineComponent({
                     </svg>
                     <span class="sr-only">Close modal</span>
                 </button>
-                <form v-if="showCreateModal" class="px-6 py-6 lg:px-8">
+                <form @submit.prevent="createAsync" v-if="showCreateModal" class="px-6 py-6 lg:px-8">
                     <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Create product detail</h3>
                     <div class="space-y-6">
                         <div class="mb-3">
@@ -109,27 +124,9 @@ export default defineComponent({
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white">
                         </div>
                       
-                        <button @click="createAsync"
-                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create
-                        <!-- <transition name="fade">
-                            <div id="toast-success" v-if="showToast" class="toast-container">
-                            <div class="toast-icon">
-                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
-                                </svg>
-                                <span class="sr-only">Check icon</span>
-                            </div>
-                            <div class="toast-content">
-                                Product successfully updated.
-                            </div>
-                            <button type="button" class="toast-close" @click="showToast = false">
-                                <span class="sr-only">Close</span>
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                </svg>
-                            </button>
-                            </div>
-                        </transition> -->
+                        <button type="submit"
+                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            >Create              
                         </button>
 
                         
@@ -207,4 +204,4 @@ export default defineComponent({
 .toast-close:hover {
   color: #333333;
 }
-</style>
+</style>@/Helpers/TokenHelper

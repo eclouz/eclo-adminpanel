@@ -2,8 +2,11 @@
 import { defineComponent } from 'vue'
 import IconAdd from '../icons/common/IconAdd.vue'
 import axios from '@/plugins/axios';
-import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n';
 import { getToken } from '@/helpers/TokenHelper';
+// import { getToken } from "../../helpers/TokenHelper";
+
+
 
 export default defineComponent({
     components: {
@@ -26,7 +29,7 @@ export default defineComponent({
     },
     methods: {
         async uploadImageAsync() {
-            if (this.imagePath) {
+            if (this.imagePath) {                
                 try {
                     const token = getToken();
                     const response = await axios.post('/api/head/admins', {
@@ -182,4 +185,4 @@ export default defineComponent({
         </form>
         <!-- end:: Admin ADD -->
     </div>
-</template>
+</template>../../helpers/TokenHelper

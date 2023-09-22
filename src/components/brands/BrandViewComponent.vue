@@ -2,6 +2,7 @@
 import IconDelete from "../../components/icons/common/IconDelete.vue"
 import IconEdit from "../../components/icons/common/IconEdit.vue"
 import { formatDate } from "@/helpers/DateHelper"
+
 import { defineComponent } from 'vue'
 import axios from '@/plugins/axios'
 import type { BrandViewModel } from "@/viewmodels/BrandViewModels"
@@ -19,7 +20,8 @@ export default defineComponent({
 
         nameProp: String,
         iconPath: String,
-        idProp: Number
+        idProp: Number,
+        refreshAction: Function,
     },
     data() {
         return {
@@ -28,7 +30,7 @@ export default defineComponent({
             showEditModal: false as Boolean,
 
             baseURL: "" as String,
-            iconFullPath: "" as String,
+            iconFullPath: "" as string,
             createdAtString: "" as String,
             updatedAtString: "" as String,
 
@@ -81,8 +83,9 @@ export default defineComponent({
                 headers:{
                     'Authorization': 'Bearer ' + token
                 }
-            })
-            location.reload();
+            });
+            this.showDeleteModal = false;
+            // this.refreshAction();
         },
         openDeleteModal() {
             this.showDeleteModal = true;
@@ -209,4 +212,4 @@ export default defineComponent({
             </div>
         </td>
     </tr>
-</template>
+</template>@/Helpers/DateHelper@/Helpers/TokenHelper@/helpers/DateHelper@/helpers/TokenHelper

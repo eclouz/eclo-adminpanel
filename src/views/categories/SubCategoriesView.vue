@@ -110,10 +110,10 @@ export default defineComponent({
     <div v-show="isLoaded == true">
         <div class="flex items-center justify-between">
             <!--Filter start-->
-            <SubcategoryFilterComponent></SubcategoryFilterComponent>
+            <!-- <SubcategoryFilterComponent></SubcategoryFilterComponent> -->
             <!--Filter end-->
 
-            <div class="flex items-center">
+            <div class="flex items-center ">
                 <!--Search start-->
                 <!-- <SubcategorySearchComponent></SubcategorySearchComponent> -->
                 <label for="table-search" class="sr-only">Search</label>
@@ -133,7 +133,7 @@ export default defineComponent({
                 <!--Search end-->
 
                 <!--begin:: Create Modal-->
-                <SubcategoryCreateModalComponent></SubcategoryCreateModalComponent>
+                <SubcategoryCreateModalComponent class="flex items-center"></SubcategoryCreateModalComponent>
                 <!--end:: Create Modal-->
             </div>
         </div>

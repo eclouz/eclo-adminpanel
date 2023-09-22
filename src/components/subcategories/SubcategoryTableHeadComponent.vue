@@ -1,5 +1,14 @@
 <script lang="ts">
-    import { useI18n } from 'vue-i18n'
+import { useI18n } from 'vue-i18n'
+import { defineComponent } from 'vue'
+export default defineComponent({
+    setup() {
+    const { t } = useI18n();
+    
+  },
+
+})
+
 </script>
 
 <template>

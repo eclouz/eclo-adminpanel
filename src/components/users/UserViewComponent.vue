@@ -23,9 +23,9 @@ export default defineComponent ({
     },
     data() {
         return {
-            baseURL: "" as String,
-            imageFullPath: "" as String,
-            birthDateString: "" as String,
+            baseURL: "" as string,
+            imageFullPath: "" as string,
+            birthDateString: "" as string,
             createdAtString: "" as String,
             updatedAtString: "" as String
         }
@@ -80,4 +80,4 @@ export default defineComponent ({
             {{ updatedAtString }}
         </td>
     </tr>
-</template>
+</template>@/Helpers/DateHelper

@@ -1,5 +1,5 @@
 export class AdminViewModel {
-    id: Number = 0;
+    id: number = 0;
     firstName: string = "";
     lastName: string = "";
     phoneNumber: string = "";

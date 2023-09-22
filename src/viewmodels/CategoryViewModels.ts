@@ -1,5 +1,5 @@
 export class CategoryViewModel{
-    id: Number = 0;
+    id: number = 0;
     name: string = "";
     description: string = "";
     createdAt: Date = new Date();

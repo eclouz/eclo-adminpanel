@@ -1,7 +1,7 @@
 export class DiscountViewModel {
-    id: Number = 0;
+    id: number = 0;
     name: string = "";
-    percentage: Number = 0;
+    percentage: number = 0;
     description: string = "";
     createdAt: Date = new Date();
     updatedAt: Date = new Date();

@@ -243,4 +243,4 @@ style="width: 45%; margin-top: 65px;">
 
   </template>
 
-<style scoped></style>
+<style scoped></style>@/Helpers/TokenHelper

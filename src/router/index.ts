@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode';
+import Cookies from 'js-cookie';
 import { createRouter, createWebHistory } from 'vue-router'
 
 
@@ -12,8 +14,10 @@ const router = createRouter({
       children: [
         {
           path: 'dashboard',
-          component: () => import('../views/dashboard/DashboardView.vue')
+          component: () => import('../views/dashboard/DashboardView.vue'),
+          meta: { requiresAuth: true }
         },
+
         {
           path: 'brands',
           component: () => import('../views/brands/BrandsView.vue')
@@ -60,10 +64,11 @@ const router = createRouter({
           component: ()=>import('../views/products/ProductUpdateView.vue')
         },
         {
-          path : 'update-product/:id/add-details',
-          name: 'add-details',
-          component: ()=>import('../views/products/ProductDetailsCreateView.vue')
-        }
+          path : 'update-product/:id/edit-details/:idDetail',
+          name: 'product-detail-edit',
+          component: ()=>import('../views/products/ProductDetailsEditView.vue')
+        },
+        
       ]
     },
     
@@ -93,5 +98,32 @@ const router = createRouter({
     },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const token = Cookies.get('access_token');
+  if (to.path !== '/auth/login') {
+    if (token) {
+      try {
+        const payload = jwtDecode(token)
+        const currentTime = Math.floor(Date.now() / 1000); 
+        if ((payload as any).exp < currentTime) {
+          next('/auth/login');
+        } else {
+           if ((payload as { [key: string]: string })['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Head' || (payload as { [key: string]: string })['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Admin') {
+            next(); 
+          } else {
+            next("/");
+          }
+        }
+      } catch (error) {
+        next('/auth/login');
+      }
+    } else {
+      next('/auth/login');
+    }
+  } else {
+    next();
+  }
+});
 
 export default router
