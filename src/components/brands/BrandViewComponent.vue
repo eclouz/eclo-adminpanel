@@ -41,13 +41,15 @@ export default defineComponent({
     methods: {
         async submitForm() {
             const formData = new FormData();
+            const token = getToken();   
             formData.append('Name', this.brandName);
             if (this.iconFilePath) {
                 formData.append('BrandIconPath', this.iconFilePath);
                 try {
                     const response = await axios.put('/api/admin/brands/' + this.id, formData, {
                         headers: {
-                            'Content-Type': 'multipart/form-data'
+                            'Content-Type': 'multipart/form-data',
+                            'Authorization': 'Bearer ' + token
                         }
                     });
                     console.log('Update successful', response.data);

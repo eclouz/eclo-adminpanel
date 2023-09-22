@@ -51,7 +51,7 @@ export default defineComponent({
                     });
                     console.log('Upload successful!', response.data);
                     this.showCreateModal = false;
-                    // location.reload();
+                    location.reload();
                 } catch (error) {
                     console.error('Error uploading file:', error);
                 }
@@ -87,7 +87,7 @@ export default defineComponent({
                 <IconAdd></IconAdd>
             </button>
         </div>
-        <form v-if="showCreateModal" action="#"
+        <form v-if="showCreateModal"
             class="fixed top-0 left-0 right-0 z-50 w-full h-screen flex items-center justify-center bg-black bg-opacity-50">
             <div class="relative w-full max-w-lg max-h-full">
                 <!-- Modal content -->

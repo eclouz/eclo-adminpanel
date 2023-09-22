@@ -39,5 +39,13 @@
     "password": "Parol",
     "upload image": "Rasm yuklash",
     "region": "Viloyat",
-    "district": "Tuman"
+    "district": "Tuman",
+
+    "admin profile": "Administrator profili",
+    "update": "Yangilash",
+    "cancel": "Bekor qilish",
+    "search": "Izlash",
+    "all admins": "Barcha adminlar",
+    "showing": "Koʻrsatilmoqda",
+    "of": "ning"
 }

@@ -38,5 +38,13 @@
     "password": "Парол",
     "upload image": "Сүўрет жүклеў",
     "region": "Уәлаят",
-    "district": "Раён"
+    "district": "Раён",
+
+    "admin profile": "Администратор профили",
+    "update": "Жаңалаў",
+    "cancel": "Быйкарлаў",
+    "search": "Излеў",
+    "all admins": "Барлық админлар",
+    "showing": "Көрсетилип атыр",
+    "of": "Дың"
 }

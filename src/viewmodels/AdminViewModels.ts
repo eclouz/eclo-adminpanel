@@ -4,6 +4,7 @@ export class AdminViewModel {
     lastName: string = "";
     phoneNumber: string = "";
     imagePath: string = "";
+    password: string = "";
     passportSerialNumber: string = "";
     birthDate: Date = new Date();
     region: string = "";

@@ -39,5 +39,13 @@
     "password": "Password",
     "upload image": "Upload Image",
     "region": "Region",
-    "district": "District"
+    "district": "District",
+
+    "admin profile": "Admin profile",
+    "update": "Update",
+    "cancel": "Cancel",
+    "search": "Search",
+    "all admins": "All Admins",
+    "showing": "Showing",
+    "of": "of"
 }
