@@ -63,21 +63,19 @@ export default defineComponent ({
             formData.append('Region', this.adminregion);
             formData.append('District', this.admindistrict);
             formData.append('Address', this.adminaddress);
-            if (this.adminimagePath) {
-                formData.append('ImagePath', this.adminimagePath);
-                try {
-                    const response = await axios.put('/api/head/admins/' + this.id, formData, {
-                        headers: {
-                            'Content-Type': 'multipart/form-data',
-                            'Authorization': 'Bearer ' + token
-                        }
-                    });
-                    console.log('Update successful', response.data);
-                    this.showEditModal = false;
-                    location.reload();
-                } catch (error) {
-                    console.error('Update error', error);
-                }
+            formData.append('ImagePath', this.adminimagePath!);
+            try {
+                const response = await axios.put('/api/head/admins/' + this.id, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': 'Bearer ' + token
+                    }
+                });
+                console.log('Update successful', response.data);
+                this.showEditModal = false;
+                location.reload();
+            } catch (error) {
+                console.error('Update error', error);
             }
         },
         async getDataAsync() {

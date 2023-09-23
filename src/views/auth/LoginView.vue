@@ -36,7 +36,13 @@ export default defineComponent({
         },
         closeError() {
             this.existError = false;
+        },
+        signoutAsync(){
+            document.cookie = "access_token = " + "" + "; expires: SESSION; path=/";
         }
+    },
+    mounted() {
+        this.signoutAsync();
     }
 })
 </script>
