@@ -43,6 +43,9 @@ export default defineComponent ({
         async load() {
             this.baseURL = axios.defaults.baseURL!;
             this.imageFullPath = this.baseURL + "/" + this.admins.imagePath;
+        },
+        signoutAsync(){
+            document.cookie = "access_token = " + "" + "; expires: SESSION; path=/";
         }
     },
     mounted() {
@@ -75,6 +78,7 @@ export default defineComponent ({
                 <li>
                     <router-link to="/auth">
                         <a href="#"
+                            @click="signoutAsync"
                             class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
                             role="menuitem">{{ $t('signout') }}</a>
                     </router-link>

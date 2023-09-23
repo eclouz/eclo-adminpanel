@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 import { AdminViewModel } from '@/viewmodels/AdminViewModels'
 import AdminViewComponent from '@/components/admins/AdminViewComponent.vue'
 import AdminSkeletonComponent from '@/components/admins/AdminSkeletonComponent.vue'
+import { useI18n } from 'vue-i18n'
 
 import AdminSearchAddComponent from '@/components/admins/AdminSearchAddComponent.vue'
 import axios from '@/plugins/axios'
@@ -98,7 +99,7 @@ export default defineComponent({
         },
     },
     setup() {
-
+        const t = useI18n()
     },
     async mounted() {
         await this.getDataAsync(1);
@@ -160,7 +161,9 @@ export default defineComponent({
                     class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="">
             </div>
-            <AdminSearchAddComponent></AdminSearchAddComponent>
+            <div class="m-2 pt-2">
+                <AdminSearchAddComponent></AdminSearchAddComponent>
+            </div>
         </div>
         <!-- end:: SearchPanel -->
         <!--begin:: Admins Skeletons-->
@@ -270,8 +273,5 @@ export default defineComponent({
     </nav>
     <!--end:: Pagination-->
 </template>
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-const t = useI18n()
-</script>
+
 <style scoped></style>

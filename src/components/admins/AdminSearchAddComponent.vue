@@ -46,10 +46,15 @@ export default defineComponent({
                             'Authorization': 'Bearer ' + token
                         },
                     });
-                    console.log('Upload successful!', response.data);
-                    this.showCreateModal = false;
-                    location.reload();
-                } catch (error) {
+                    if(response.status == 200) {
+                        console.log('Upload successful!', response.data);
+                        this.showCreateModal = false;
+                        location.reload();
+                    } else {
+                        console.log("Not uploaded  \n something went wrong");
+                    }
+                } 
+                catch (error) {
                     console.error('Error uploading file:', error);
                 }
             }
