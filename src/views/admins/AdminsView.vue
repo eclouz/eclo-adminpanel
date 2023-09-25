@@ -4,7 +4,6 @@ import { AdminViewModel } from '@/viewmodels/AdminViewModels'
 import AdminViewComponent from '@/components/admins/AdminViewComponent.vue'
 import AdminSkeletonComponent from '@/components/admins/AdminSkeletonComponent.vue'
 import { useI18n } from 'vue-i18n'
-
 import AdminSearchAddComponent from '@/components/admins/AdminSearchAddComponent.vue'
 import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
@@ -97,7 +96,7 @@ export default defineComponent({
                 user.phoneNumber.toLowerCase().includes(query)
             );
         },
-    },
+    },  
     setup() {
         const t = useI18n()
     },

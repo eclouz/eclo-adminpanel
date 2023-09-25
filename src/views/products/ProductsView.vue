@@ -227,6 +227,7 @@ export default defineComponent({
                         </div>
                     </div>
                 </div>
+                
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -248,7 +249,13 @@ export default defineComponent({
 
                             </tr>
                         </thead>
-                        
+                         <!--begin:: Brands Skeletons-->
+       <div v-show="isLoaded == false">
+        <template v-for="element in defaultSkeletons">
+            <BrandSkeletonComponent></BrandSkeletonComponent>
+        </template>
+    </div>
+    <!--end:: Brands Skeletons-->
                         <tbody>                                                                                                                                                                                                                                                                                                                                             
                                 <ProductViewComponent  v-for="el in filteredItems"
                                     :id=el.productId                                    

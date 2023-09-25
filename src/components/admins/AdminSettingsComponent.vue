@@ -112,7 +112,7 @@ export default defineComponent ({
             showEditModal: false as Boolean,
 
             baseURL: "" as String,
-            imageFullPath: "" as String,
+            imageFullPath: "" as string,
             birthDateString: "" as String,
             createdAtString: "" as String,
             updatedAtString: "" as String,

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from 'vue'         
 import { DiscountViewModel } from '@/viewmodels/DiscountViewModels'
 import DiscountViewComponent from '@/components/discounts/DiscountViewComponent.vue'
 import IconAdd from '@/components/icons/common/IconAdd.vue'

@@ -22,12 +22,13 @@ export default defineComponent({
     },
     data() {
         return{
-            baseURL: "" as String,
+            baseURL: "" as string,
             ProductDetailId: 0 as number,
-            idNumber: 0 as Number,       
-            sizeString: "" as String     ,
-            quantityNumber: 0 as Number,
-
+            idNumber: 0 as number,       
+            sizeString: "" as string     ,
+            quantityNumber: 0 as number,
+            showResponseToast:false as Boolean,
+            responseStatus: '' as string,            
 
             showEditModal: false as Boolean,
             showDeleteModal: false as Boolean,
@@ -37,11 +38,11 @@ export default defineComponent({
     },
     methods: {
         async submitForm(id:any) {    
-            debugger;
+            // debugger;
             // console.log(id);
-            // console.log(this.productDetailId);
-            // console.log(this.size);                        
-            // console.log(this.quantity);                        
+            // console.log(this.ProductDetailId);
+            // console.log(this.sizeString);                        
+            // console.log(this.quantityNumber);                        
             const token = getToken();                                               
                 try {
                     const response = await axios.put('api/admin/product/detail/sizes/' + id,{
@@ -60,6 +61,9 @@ export default defineComponent({
                     }
                     else{
                         console.log("SomethingWrong");                         
+                        this.showResponseToast = true;
+                        setTimeout(() => { this.showResponseToast = false }, 5000);
+                        this.responseStatus = response.status.toString() + ' Not recognized Size. Write XL,L,X,XXL';
                     }                    
 
                     this.showEditModal = false;
@@ -207,6 +211,30 @@ export default defineComponent({
                     </div>
                 </div>
                 <!-- end:: Edit Modal -->
+
+                 <!--Start::> Update Toast -->
+      <transition name="fade"> 
+        <div id="toast-warning" v-if="showResponseToast" class="toast-container">
+          <div class="toast-icon">           
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+            </svg>
+            <span class="sr-only">Check icon</span>
+          </div>
+          <div class="toast-content">
+            {{ responseStatus }}  <span> Warning !</span>
+          </div>
+          <button type="button" class="toast-close" @click="showResponseToast = false">
+            <span class="sr-only">Close</span>
+            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+            </svg>
+          </button>
+        </div>
+      </transition>
+      <!--Finish::> Update Toast -->
+
 
 </template>
 <style>
