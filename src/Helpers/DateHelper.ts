@@ -2,9 +2,9 @@ export function formatDate(date: Date): string {
     var date: Date = new Date(date.toString());
 
     let year = date.getFullYear();
-    let month = date.getMonth().toString();
+    let month = (date.getMonth() + 1).toString();
     if(month.length == 1) month = "0"+month;
-    let day = date.getDay().toString();
+    let day = date.getDate().toString();
     if(day.length == 1) day = "0"+day;
 
     let hours = date.getHours().toString();
