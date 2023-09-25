@@ -2,6 +2,7 @@
 require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
+  
   root: true,
   'extends': [
     'plugin:vue/vue3-essential',
@@ -11,5 +12,9 @@ module.exports = {
   ],
   parserOptions: {
     ecmaVersion: 'latest'
-  }
+  },
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/my-project/'
+  : '/'
+  
 }
