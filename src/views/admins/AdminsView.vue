@@ -3,7 +3,6 @@ import { defineComponent } from 'vue'
 import { AdminViewModel } from '@/viewmodels/AdminViewModels'
 import AdminViewComponent from '@/components/admins/AdminViewComponent.vue'
 import AdminSkeletonComponent from '@/components/admins/AdminSkeletonComponent.vue'
-
 import AdminSearchAddComponent from '@/components/admins/AdminSearchAddComponent.vue'
 import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
@@ -97,9 +96,7 @@ export default defineComponent({
             );
         },
     },
-    setup() {
-
-    },
+   
     async mounted() {
         await this.getDataAsync(1);
         await this.CountAllAdminAsync();

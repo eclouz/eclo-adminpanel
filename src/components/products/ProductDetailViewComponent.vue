@@ -44,10 +44,11 @@ export default defineComponent({
             this.showDeleteModal = false;
         },
         navigateToUpdatePage(id:any) {
-            this.$router.push({ name: 'product-detail-edit', params: { idDetail: id } });
+            this.$router.push({ name: 'product-detail-edit', params: { idDetail: id } });            
             // this.refreshAction();
 
         },    
+        
         closeEditAsync() {
             this.showEditModal = false;
         },

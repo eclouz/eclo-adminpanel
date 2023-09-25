@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import Cookies from 'js-cookie';
 import { createRouter, createWebHistory } from 'vue-router'
+// import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
 
 
 const router = createRouter({
@@ -97,7 +98,11 @@ const router = createRouter({
       ]
     },
   ]
+
+
 })
+
+
 
 router.beforeEach((to, from, next) => {
   const token = Cookies.get('access_token');
@@ -109,7 +114,7 @@ router.beforeEach((to, from, next) => {
         if ((payload as any).exp < currentTime) {
           next('/auth/login');
         } else {
-           if ((payload as { [key: string]: string })['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Head' || (payload as { [key: string]: string })['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Admin') {
+           if ((payload as { [key: string]: string })['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] === 'Head' || (payload as { [key: string]: string })['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] == 'Admin') {
             next(); 
           } else {
             next("/");

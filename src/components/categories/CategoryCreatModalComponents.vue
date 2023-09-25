@@ -20,7 +20,9 @@ export default defineComponent({
     methods: {
         async createAsync() {
             const token = getToken();  
-            const response = await axios.post("api/admin/categories", { "name": this.name, "description": this.description }, {
+            const response = await axios.post("api/admin/categories",
+             { "name": this.name, "description": this.description }, 
+             {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     'Authorization': 'Bearer ' + token 
