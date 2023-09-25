@@ -15,7 +15,7 @@ export default defineComponent ({
         return {
             admins: new AdminViewModel,
             baseURL: "" as String,
-            imageFullPath: "" as String,
+            imageFullPath: "" as string,
 
             adminfirstName: "",
             adminlastName: "",

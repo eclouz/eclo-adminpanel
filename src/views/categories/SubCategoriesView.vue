@@ -33,9 +33,10 @@ export default defineComponent({
     methods: {
         async getDataAsync(page:Number) {
             this.isLoaded = false;
-            var response = await axios.get<SubcategoryViewModel[]>("/api/common/subcategories?page="+page);
+            var response = await axios.get<SubcategoryViewModel[]>("api/common/subcategories?page="+page);
             this.isLoaded = true;
             this.subcategoriesList = response.data;
+            console.log(response.data); 
 
             const paginationJson = JSON.parse(response.headers['x-pagination']);
             this.metaData = new PaginationMetaData();

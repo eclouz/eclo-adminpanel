@@ -5,6 +5,7 @@ import { defineComponent } from "vue";
 import axios from '@/plugins/axios';
 import FlowbiteSetup from "@/FlowbiteSetup.vue";
 import { getToken } from '@/helpers/TokenHelper';
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
     components: {
@@ -14,7 +15,7 @@ export default defineComponent({
     data() {
         return {
             name: "" as String,
-            categoryId: Number,
+            categoryId: 0 as  number,
             createErorr: false as Boolean,
             categoriesList: [] as CategoryViewModel[]
         };
@@ -22,25 +23,36 @@ export default defineComponent({
     methods: {
         
         async createAsync() {
+            debugger;
             const token = getToken();  
+            console.log(this.categoryId);
+            console.log(this.name);
+            
+            const formData = new FormData();
+            formData.append('CategoryId', this.categoryId.toString());
+            formData.append('Name', this.name.toString());
 
-            const response = await axios.post("/api/admin/subcategories", { "CategoryId": this.categoryId, "name": this.name },  {
+            const response = await axios.post("api/admin/subcategories", formData, 
+            // { "CategoryId": this.categoryId.toString(), "Name": this.name }, 
+             {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     'Authorization': 'Bearer ' + token 
                 },
-            });
+            })            
             if (response.status == 200) {
                 this.$router.push("/subcategories");
                 this.hideModal();
-
+                location.reload();
             }
             else {
                 this.createErorr = true;
             }
+            console.log(response.data);
+            
         },
         async selectAsync() {
-            var response = await axios.get<CategoryViewModel[]>("/api/common/categories?page=1");
+            var response = await axios.get<CategoryViewModel[]>("api/common/categories?page=1");
             this.categoriesList = response.data;
         },
         async hideModal() {
@@ -52,7 +64,9 @@ export default defineComponent({
             //addasdsa
         }
     },
-
+    setup() {
+    const { t } = useI18n();
+  },
 });
 </script>
 
@@ -113,9 +127,12 @@ export default defineComponent({
 
                         <!--begin:: Create Button-->
                         <div class="m-5">
-                            <button @click="createAsync"
-                                class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create
-                            </button>
+                            <form @submit.prevent="createAsync">         
+                                <button type="submit"
+                                    class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                    Create
+                                </button>
+                            </form>
                         </div>
                         <!--end:: Create Button-->
 
