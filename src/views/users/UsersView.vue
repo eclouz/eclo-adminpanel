@@ -5,21 +5,29 @@ import UserViewComponent from '@/components/users/UserViewComponent.vue'
 import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
 import { PaginationMetaData } from "@/Utils/PaginationUtils";
-
+import UserSkeletonComponent from '@/components/users/UserSkeletonComponent.vue'
 
 export default defineComponent({
     name: 'SearchItems',
     components: {
-        UserViewComponent
+        UserViewComponent,
+        UserSkeletonComponent
     },
     methods: {
         async getDataAsync(page: Number) {
+            this.isLoaded = false;
             const token = getToken();
             const response = await axios.get<UserViewModel[]>('/api/admin/users?page=1', {
                 headers: {
                     'Authorization': 'Bearer ' + token
                 }
             });
+            if (response.data.length >= 0) {
+                this.isLoaded = true;
+            }
+            else {
+                this.isLoaded = false;
+            }
             this.usersList = response.data;
             const paginationJson = JSON.parse(response.headers['x-pagination']);
             this.metaData = new PaginationMetaData();
@@ -48,6 +56,9 @@ export default defineComponent({
     },
     data() {
         return {
+            defaultSkeletons: 1 as number,
+            isLoaded: false as boolean,
+
             searchQuery: '',
             usersList: [] as UserViewModel[],
             metaData: new PaginationMetaData(),
@@ -115,8 +126,15 @@ export default defineComponent({
             </div>
         </div>
         <!-- end:: SearchPanel -->
+        <!--begin:: Users Skeletons-->
+        <div v-show="isLoaded == false">
+            <template v-for="element in defaultSkeletons">
+                <UserSkeletonComponent></UserSkeletonComponent>
+            </template>
+        </div>
+        <!--end:: Users Skeletons-->
         <!-- begin:: Users -->
-        <div>
+        <div v-show="isLoaded == true">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>

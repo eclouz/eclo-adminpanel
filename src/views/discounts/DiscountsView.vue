@@ -6,15 +6,17 @@ import IconAdd from '@/components/icons/common/IconAdd.vue'
 import axios from '@/plugins/axios'
 import { getToken } from '@/helpers/TokenHelper'
 import { PaginationMetaData } from "@/Utils/PaginationUtils";
-
+import DiscountSkeletonComponent from '@/components/discounts/DiscountSkeletonComponent.vue'
 
 export default defineComponent({
   components: {
+    DiscountSkeletonComponent,
     DiscountViewComponent,
     IconAdd
   },
   methods: {
     async getDataAsync(page: Number) {
+      this.isLoaded = false;
       const token = getToken();
       const response = await axios.get<DiscountViewModel[]>('/api/common/discounts?page=1', {
         headers: {
@@ -22,6 +24,12 @@ export default defineComponent({
           'Authorization': 'Bearer ' + token
         }
       });
+      if (response.data.length >= 0) {
+          this.isLoaded = true;
+      }
+      else {
+          this.isLoaded = false;
+      }
       this.discountsList = response.data;
       const paginationJson = JSON.parse(response.headers['x-pagination']);
       this.metaData = new PaginationMetaData();
@@ -72,6 +80,9 @@ export default defineComponent({
   },
   data() {
     return {
+      defaultSkeletons: 1 as number,
+      isLoaded: false as boolean,
+      
       searchQuery: '',
       discountsList: [] as DiscountViewModel[],
       showCreateModal: false as Boolean,
@@ -80,10 +91,10 @@ export default defineComponent({
       description: "" as string,
       metaData: new PaginationMetaData(),
 
-            hasNext: false,
-            hasPrevious: false,            
-            currentPage: 1 as number,
-            totalPages: 1 as number,
+      hasNext: false,
+      hasPrevious: false,            
+      currentPage: 1 as number,
+      totalPages: 1 as number,
 
     }
   },
@@ -132,9 +143,15 @@ export default defineComponent({
     </ol>
   </nav>
   <!--end:: BreadCrumb-->
-
+  <!--begin:: Discounts Skeletons-->
+  <div v-show="isLoaded == false">
+    <template v-for="element in defaultSkeletons">
+      <DiscountSkeletonComponent></DiscountSkeletonComponent>
+    </template>
+  </div>
+  <!--end:: Discounts Skeletons-->
   <!-- begin:: Discounts -->
-  <div>
+  <div v-show="isLoaded == true">
     <section>
       <div class="mx-auto max-w-screen-xl">
         <!-- Start coding here -->
@@ -315,4 +332,4 @@ export default defineComponent({
   <!-- end:: Pagination -->
 </template>
 
-<style scoped></style>@/Helpers/TokenHelper
+<style scoped></style>

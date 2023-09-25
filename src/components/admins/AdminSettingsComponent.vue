@@ -5,6 +5,7 @@ import axios from '@/plugins/axios'
 import { AdminViewModel } from "@/viewmodels/AdminViewModels"
 import { getToken } from "@/helpers/TokenHelper"
 import AdminSkeletonComponent from '@/components/admins/AdminSkeletonComponent.vue'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent ({
     components: {
@@ -47,12 +48,6 @@ export default defineComponent ({
                         'Authorization': 'Bearer ' + token
                     }
                 });
-                if (response.data.length >= 0) {
-                    this.isLoaded = true;
-                }
-                else {
-                    this.isLoaded = false;
-                }
                 console.log('Update successful', response.data);
                 this.showEditModal = false;
                 location.reload();
@@ -67,6 +62,12 @@ export default defineComponent ({
                     'Authorization': 'Bearer ' + token
                 }
             });
+            if (response.status == 200) {
+                this.isLoaded = true;
+            }
+            else {
+                this.isLoaded = false;
+            }
             this.admins = response.data;
             this.load();
             this.openEditModal();
@@ -128,6 +129,9 @@ export default defineComponent ({
             adminaddress: ""
         }
     },
+    setup() {
+        const t = useI18n()
+    },
     mounted() {
         this.getDataAsync();
         this.load();
@@ -140,13 +144,13 @@ export default defineComponent ({
 <template>
     <h1 class="mt-10 mb-4 pb-4 text-2xl font-medium leading-none text-gray-900 dark:text-white border-b border-gray-600">{{ $t('admin profile') }}</h1>
     <!--begin:: Admins Skeletons-->
-    <div v-show="isLoaded == true">
+    <div v-show="isLoaded == false">
         <template v-for="element in defaultSkeletons">
             <AdminSkeletonComponent></AdminSkeletonComponent>
         </template>
     </div>
     <!--end:: Admins Skeletons-->
-    <div class="flex justify-between" v-show="isLoaded == false">
+    <div v-show="isLoaded == true" class="flex justify-between">
         <div class="w-2/5 mr-5">
             <div class="w-full mb-5 p-5 border rounded-lg border-gray-600">
                  <!-- begin:: Profile info-->
@@ -253,8 +257,4 @@ export default defineComponent ({
     </div>
 </template>
 
-<!-- <style scoped></style> -->
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-const t = useI18n()
-</script>
+<style scoped></style>
