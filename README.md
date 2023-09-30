@@ -44,3 +44,5 @@ npm run build
 ```sh
 npm run lint
 ```
+
+![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/127b4ed2-d8b1-4f67-a7da-6b62fa00c264)
