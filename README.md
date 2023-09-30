@@ -45,4 +45,17 @@ npm run build
 npm run lint
 ```
 
+Login Page for Admin Panel
 ![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/127b4ed2-d8b1-4f67-a7da-6b62fa00c264)
+
+Language integrated Admin Panel - Dashboard page
+![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/e6292eae-2e8f-4c37-91f4-aec54ef7c949)
+
+Profile View - Settings
+![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/54635839-0b12-46b6-b2a2-7017b4a9b630)
+
+Products Page
+![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/0f68be62-c329-4401-ae5d-e9d5b88f5d60)
+
+Subcategories page
+![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/d7be97c5-7f83-4e57-a196-9d871027cbf9)
