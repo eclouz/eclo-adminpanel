@@ -1,4 +1,3 @@
-![image](https://github.com/eclouz/eclo-adminpanel/assets/125248359/bcaddf2d-8bd1-4e33-a7b3-6d9db9d6fef1)# eclo-adminpanel
 
 This template should help get you started developing with Vue 3 in Vite.
 
