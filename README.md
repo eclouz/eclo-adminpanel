@@ -1,4 +1,4 @@
-# eclo-adminpanel
+![image](https://github.com/eclouz/eclo-adminpanel/assets/125248359/bcaddf2d-8bd1-4e33-a7b3-6d9db9d6fef1)# eclo-adminpanel
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -56,6 +56,24 @@ Profile View - Settings
 
 Products Page
 ![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/0f68be62-c329-4401-ae5d-e9d5b88f5d60)
+
+Let's deep dive to the products page 
+- When we click to the edit button in the product usercontrol we can see full informations about our products adn we can edit them.
+![image](https://github.com/eclouz/eclo-adminpanel/assets/125248359/1fe3dcc0-4e4d-4fea-990b-40befd6b6713)
+
+- Let's add product details for your product with simply click to the "Add details" button in the product update page
+![image](https://github.com/eclouz/eclo-adminpanel/assets/125248359/a737e502-0de8-47fe-811d-3175d3382527)
+You can see your product's details with simple clicking of "Product detail" accordian , under the Save and Add details button
+![image](https://github.com/eclouz/eclo-adminpanel/assets/125248359/8ce33abd-c69c-408b-ac70-8e38a44d9d2c)
+If you want to modify your product detail informations click to the "Edit" button on your Product details user control if you want to delete it in user control has "Delete" button too .
+![image](https://github.com/eclouz/eclo-adminpanel/assets/125248359/a565c9e0-3f14-44f2-bb03-bbf5d497e477)
+
+- Let's deep dive into product details too :)
+Inside of edit Product details you can add additional inforamtions to the product details like  details fashion and details size.
+For example one product has several colors and the same color has several sizes .
+You can manage this problem in this page
+
+    
 
 Subcategories page
 ![image](https://github.com/eclouz/eclo-adminpanel/assets/124333244/d7be97c5-7f83-4e57-a196-9d871027cbf9)
