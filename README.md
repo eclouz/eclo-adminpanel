@@ -72,6 +72,8 @@ Inside of edit Product details you can add additional inforamtions to the produc
 For example one product has several colors and the same color has several sizes .
 You can manage this problem in this page
 
+
+I will add Soon :)
     
 
 Subcategories page
